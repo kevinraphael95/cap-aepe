@@ -1,2 +1,1 @@
-- https://test-cap-aepe.netlify.app/
-- https://kevinraphael95.github.io/cap-aepe/
+https://kevinraphael95.github.io/cap-aepe/
