@@ -249,16 +249,29 @@ h1,h2,h3,.syne{font-family:'Syne',sans-serif;}
 </div>
 
 <!-- ============================================================
-     Les questions sont dans questions.js (fichier séparé).
-     Pour utiliser ce quiz, placez index.html et questions.js
-     dans le même dossier et ouvrez index.html dans un navigateur.
+     Les questions sont réparties dans plusieurs fichiers :
+       • questions.js   — Biologie, Nutrition, SMS, Parasitoses
+       • questions2.js  — Développement enfant, Psychomotricité, Famille, Réglementation
+     Pour ajouter un fichier : créez questions3.js avec une variable
+     QUESTIONS_3 = [...], ajoutez un <script src="questions3.js">
+     et ajoutez QUESTIONS_3 dans le tableau ALL_QUESTION_FILES ci-dessous.
+     Placez tous les fichiers dans le même dossier et ouvrez index.html.
 ============================================================ -->
 <script src="questions.js"></script>
+<script src="questions2.js"></script>
 <script>
 // ============================================================
 // LOGIQUE DU QUIZ — index.html
-// Les données (QUESTIONS) sont chargées depuis questions.js
+// Fusion automatique de tous les fichiers de questions
 // ============================================================
+
+// ⬇ Ajoutez ici chaque nouvelle variable de questions
+const ALL_QUESTION_FILES = [
+  typeof QUESTIONS_1 !== 'undefined' ? QUESTIONS_1 : [],
+  typeof QUESTIONS_2 !== 'undefined' ? QUESTIONS_2 : [],
+  // typeof QUESTIONS_3 !== 'undefined' ? QUESTIONS_3 : [],
+];
+const QUESTIONS = ALL_QUESTION_FILES.flat();
 
 const LETTERS = ['A','B','C','D'];
 let curMode='all', quiz=[], idx=0, score=0, answered=false, catStats={};

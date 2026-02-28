@@ -1,8 +1,8 @@
 // ============================================================
-// BASE DE QUESTIONS — CAP AEPE
-// Fichier de données séparé — importé par index.html
+// BASE DE QUESTIONS 1 — CAP AEPE
+// Biologie, Nutrition, SMS, Parasitoses, Soins, Accueil
 // ============================================================
-const QUESTIONS = [
+const QUESTIONS_1 = [
 
   // === 🧬 Biologie – Corps humain ===
   {cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain',
