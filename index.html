@@ -3,418 +3,774 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz CAP AEPE – Fiches de Cours</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Quiz CAP AEPE</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f8f4ff;
-    --primary: #7c3aed;
-    --secondary: #a78bfa;
-    --accent: #34d399;
-    --warn: #f59e0b;
-    --danger: #ef4444;
-    --dark: #1e1b4b;
-    --card: #ffffff;
-    --shadow: 0 8px 32px rgba(124,58,237,0.12);
-    --radius: 20px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    color: var(--dark);
-    background-image:
-      radial-gradient(circle at 15% 15%, #ede9fe 0%, transparent 45%),
-      radial-gradient(circle at 85% 85%, #d1fae5 0%, transparent 45%);
-  }
-  #app { max-width: 820px; margin: 0 auto; padding: 20px; }
+:root {
+  --cream: #fdf6ec;
+  --warm: #f5e6d0;
+  --sand: #e8d5b7;
+  --sand-dark: #d4bc95;
+  --terracotta: #c1724f;
+  --terra-dark: #9a5538;
+  --sage: #6b8f71;
+  --sage-light: #c8deca;
+  --dusty: #7b9eb8;
+  --navy: #2c3e50;
+  --charcoal: #3d4a3e;
+  --gold: #d4a843;
+  --rose: #d4756b;
+  --text: #2a2420;
+  --text-muted: #7a6b5d;
+  --r: 18px;
+  --rsm: 10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;color:var(--text);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(193,114,79,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 90%,rgba(107,143,113,.08) 0%,transparent 60%),url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c1724f' fill-opacity='.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+#app{max-width:860px;margin:0 auto;padding:24px 20px;position:relative;z-index:1;}
+h1,h2,h3,.syne{font-family:'Syne',sans-serif;}
 
-  /* HOME */
-  #home { text-align: center; padding: 30px 10px; }
-  .logo { font-family: 'Baloo 2', cursive; font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #7c3aed, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height:1.1; }
-  .subtitle { color: #6b7280; margin: 8px 0 6px; font-size: 1rem; }
-  .source-badge { display: inline-block; background: #ede9fe; color: var(--primary); border-radius: 20px; padding: 5px 16px; font-size: 0.8rem; font-weight: 700; margin-bottom: 24px; }
-  .stats-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
-  .stat { background: white; border-radius: 50px; padding: 8px 18px; font-weight: 700; font-size: 0.88rem; box-shadow: 0 3px 12px rgba(0,0,0,0.08); }
+/* ===== HOME ===== */
+#home{animation:fadeUp .5s ease;}
+.home-header{text-align:center;padding:48px 20px 36px;}
+.logo-wrap{display:inline-flex;align-items:center;gap:14px;margin-bottom:16px;}
+.logo-icon{width:64px;height:64px;background:var(--terracotta);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:4px 4px 0 var(--terra-dark);}
+.logo-text{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;color:var(--text);letter-spacing:-1px;line-height:1;}
+.logo-text span{color:var(--terracotta);}
+.tagline{color:var(--text-muted);font-size:1rem;margin-bottom:8px;}
+.source-chip{display:inline-flex;align-items:center;gap:6px;background:var(--warm);border:1.5px solid var(--sand);border-radius:50px;padding:5px 14px;font-size:.78rem;font-weight:600;color:var(--terra-dark);margin-bottom:36px;}
 
-  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
-  .cat-card { background: white; border-radius: 16px; padding: 20px 16px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: all 0.22s; border: 2px solid transparent; text-align: left; }
-  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(124,58,237,0.18); border-color: var(--secondary); }
-  .cat-icon { font-size: 2rem; margin-bottom: 8px; }
-  .cat-title { font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 700; color: var(--dark); line-height: 1.3; margin-bottom: 4px; }
-  .cat-count { font-size: 0.78rem; color: #9ca3af; font-weight: 600; }
-  .all-card { background: linear-gradient(135deg, var(--primary), #4f46e5); color: white; border-radius: 16px; padding: 22px; cursor: pointer; box-shadow: 0 6px 20px rgba(124,58,237,0.35); transition: all 0.22s; text-align: center; margin-bottom: 8px; }
-  .all-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(124,58,237,0.45); }
-  .all-card .cat-title { color: white; font-size: 1.2rem; }
-  .all-card .cat-count { color: rgba(255,255,255,0.8); }
+.stats-strip{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.stat-pill{background:white;border:1.5px solid var(--sand);border-radius:50px;padding:8px 20px;font-size:.85rem;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:7px;box-shadow:2px 2px 0 var(--sand);}
+.stat-pill strong{color:var(--text);}
 
-  /* QUIZ */
-  #quiz { display: none; }
-  .qheader { background: white; border-radius: var(--radius); padding: 16px 22px; margin-bottom: 18px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .prog-wrap { flex: 1; min-width: 180px; }
-  .prog-label { display: flex; justify-content: space-between; font-size: 0.82rem; color: #6b7280; margin-bottom: 5px; }
-  .prog-bar { height: 9px; background: #e5e7eb; border-radius: 9px; overflow: hidden; }
-  .prog-fill { height: 100%; border-radius: 9px; background: linear-gradient(90deg, var(--accent), var(--primary)); transition: width 0.5s; }
-  .score-box { font-family: 'Baloo 2', cursive; font-size: 1.35rem; font-weight: 700; color: var(--primary); }
-  .cat-tag { background: #ede9fe; color: var(--primary); border-radius: 20px; padding: 4px 13px; font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
-  .back-btn { background: none; border: 2px solid #e5e7eb; border-radius: 10px; padding: 6px 14px; font-size: 0.82rem; font-weight: 700; cursor: pointer; color: #6b7280; transition: all 0.2s; }
-  .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+.section-label{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--sand);}
 
-  .qcard { background: white; border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); animation: slideUp 0.3s ease; }
-  @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
-  .qnum { font-size: 0.75rem; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .qsource { display: inline-block; font-size: 0.75rem; font-weight: 700; background: #f3f4f6; color: #4b5563; border-radius: 8px; padding: 3px 10px; margin-bottom: 14px; }
-  .qtext { font-family: 'Baloo 2', cursive; font-size: 1.2rem; font-weight: 600; line-height: 1.5; margin-bottom: 22px; }
-  .opts { display: flex; flex-direction: column; gap: 11px; }
-  .opt { padding: 13px 18px; border-radius: 13px; border: 2px solid #e5e7eb; cursor: pointer; font-size: 0.92rem; font-weight: 600; transition: all 0.18s; background: #fafafa; display: flex; align-items: center; gap: 11px; }
-  .opt-l { width: 28px; height: 28px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; transition: all 0.18s; }
-  .opt:hover:not(.disabled) { border-color: var(--primary); background: #f5f3ff; transform: translateX(4px); }
-  .opt:hover:not(.disabled) .opt-l { background: var(--primary); color: white; }
-  .opt.ok { border-color: var(--accent); background: #ecfdf5; }
-  .opt.ok .opt-l { background: var(--accent); color: white; }
-  .opt.ko { border-color: var(--danger); background: #fef2f2; }
-  .opt.ko .opt-l { background: var(--danger); color: white; }
-  .opt.disabled { cursor: default; }
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.mode-card{border-radius:var(--r);padding:24px 22px;cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);border:2px solid transparent;}
+.mode-card:hover{transform:translateY(-4px);}
+.mode-card:active{transform:translateY(-1px) scale(.99);}
+.mode-card.exam{background:var(--navy);color:white;box-shadow:4px 4px 0 var(--charcoal);}
+.mode-card.exam:hover{box-shadow:6px 6px 0 var(--charcoal);}
+.mode-card.rapid{background:var(--terracotta);color:white;box-shadow:4px 4px 0 var(--terra-dark);}
+.mode-card.rapid:hover{box-shadow:6px 6px 0 var(--terra-dark);}
+.mc-icon{font-size:2.2rem;margin-bottom:10px;}
+.mc-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:5px;}
+.mc-sub{font-size:.78rem;opacity:.75;}
 
-  .fb { margin-top: 18px; padding: 16px 20px; border-radius: 13px; font-size: 0.9rem; line-height: 1.65; display: none; animation: fadeIn 0.3s; }
-  @keyframes fadeIn { from{opacity:0}to{opacity:1} }
-  .fb.show { display: block; }
-  .fb.ok-fb { background: #ecfdf5; border: 2px solid var(--accent); }
-  .fb.ko-fb { background: #fff7ed; border: 2px solid var(--warn); }
-  .fb-title { font-weight: 700; margin-bottom: 5px; font-size: 0.95rem; }
-  .fb.ok-fb .fb-title { color: #059669; }
-  .fb.ko-fb .fb-title { color: #d97706; }
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:11px;}
+.cat-card{background:white;border:1.5px solid var(--sand);border-radius:var(--r);padding:18px 16px;cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--terracotta);transform:scaleX(0);transform-origin:left;transition:transform .2s;}
+.cat-card:hover{border-color:var(--terracotta);transform:translateY(-3px);box-shadow:3px 3px 0 var(--sand);}
+.cat-card:hover::before{transform:scaleX(1);}
+.cat-emoji{font-size:1.8rem;margin-bottom:8px;}
+.cat-name{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;}
+.cat-cnt{font-size:.74rem;color:var(--text-muted);font-weight:500;}
+.cat-prog{margin-top:10px;height:3px;background:var(--warm);border-radius:3px;overflow:hidden;}
+.cat-prog-fill{height:100%;background:var(--sage);border-radius:3px;transition:width .6s;}
 
-  .next-btn { width: 100%; padding: 15px; border-radius: 13px; border: none; font-family: 'Baloo 2', cursive; font-size: 1.05rem; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--primary), #4f46e5); color: white; margin-top: 14px; display: none; transition: all 0.2s; box-shadow: 0 4px 14px rgba(124,58,237,0.35); }
-  .next-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(124,58,237,0.45); }
-  .next-btn.show { display: block; animation: fadeIn 0.3s; }
+/* ===== QUIZ ===== */
+#quiz{display:none;animation:fadeUp .3s ease;}
+.quiz-header{background:white;border:1.5px solid var(--sand);border-radius:var(--r);padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;box-shadow:2px 2px 0 var(--sand);}
+.back-btn{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;background:none;border:1.5px solid var(--sand);border-radius:var(--rsm);padding:7px 13px;cursor:pointer;color:var(--text-muted);transition:all .18s;white-space:nowrap;}
+.back-btn:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.progress-block{flex:1;min-width:140px;}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.progress-count{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);}
+.cat-badge{font-size:.7rem;font-weight:600;background:var(--warm);color:var(--terra-dark);border-radius:50px;padding:3px 10px;border:1px solid var(--sand);}
+.progress-bar{height:6px;background:var(--warm);border-radius:6px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--terracotta));border-radius:6px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.score-display{display:flex;align-items:center;gap:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--sage);white-space:nowrap;}
+.score-dot{width:10px;height:10px;border-radius:50%;background:var(--sage);}
 
-  /* RESULTS */
-  #results { display: none; text-align: center; }
-  .res-card { background: white; border-radius: var(--radius); padding: 36px 28px; box-shadow: var(--shadow); margin-bottom: 18px; }
-  .score-ring { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 22px; display: flex; align-items: center; justify-content: center; background: conic-gradient(var(--accent) calc(var(--p)*3.6deg), #e5e7eb 0); position: relative; }
-  .score-inner { width: 118px; height: 118px; border-radius: 50%; background: white; position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .res-pct { font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800; }
-  .res-frac { font-size: 0.8rem; color: #9ca3af; }
-  .res-msg { font-family: 'Baloo 2', cursive; font-size: 1.7rem; font-weight: 800; margin-bottom: 8px; }
-  .res-det { color: #6b7280; margin-bottom: 22px; font-size: 0.95rem; }
-  .cat-bd { text-align: left; margin-top: 20px; }
-  .bd-title { font-weight: 700; margin-bottom: 13px; }
-  .bd-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .bd-name { width: 175px; font-size: 0.82rem; font-weight: 600; flex-shrink: 0; line-height: 1.3; }
-  .bd-bar { flex: 1; height: 9px; background: #f3f4f6; border-radius: 9px; overflow: hidden; }
-  .bd-fill { height: 100%; border-radius: 9px; background: linear-gradient(90deg, var(--accent), var(--primary)); }
-  .bd-score { font-size: 0.82rem; font-weight: 700; color: #4b5563; width: 45px; text-align: right; }
-  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btn { padding: 13px 26px; border-radius: 13px; border: none; font-family: 'Baloo 2', cursive; font-size: 0.98rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-  .btn-p { background: linear-gradient(135deg, var(--primary), #4f46e5); color: white; box-shadow: 0 4px 14px rgba(124,58,237,0.35); }
-  .btn-s { background: white; color: var(--dark); border: 2px solid #e5e7eb; }
-  .btn:hover { transform: translateY(-2px); }
+.qcard{background:white;border:1.5px solid var(--sand);border-radius:var(--r);padding:32px 30px;box-shadow:3px 3px 0 var(--sand);animation:slideUp .35s cubic-bezier(.34,1.56,.64,1);}
+.q-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.q-number{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+.q-source-tag{font-size:.72rem;font-weight:600;background:var(--warm);color:var(--terra-dark);border-radius:6px;padding:3px 9px;border:1px solid var(--sand);}
+.q-text{font-family:'Syne',sans-serif;font-size:1.18rem;font-weight:600;line-height:1.55;margin-bottom:26px;color:var(--text);}
 
-  @media(max-width:480px) {
-    .logo { font-size: 2.2rem; }
-    .qtext { font-size: 1.05rem; }
-    .opt { font-size: 0.87rem; }
-  }
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{padding:14px 18px;border-radius:var(--rsm);border:1.5px solid var(--sand);cursor:pointer;font-size:.91rem;font-weight:500;transition:all .18s;background:var(--cream);display:flex;align-items:flex-start;gap:12px;line-height:1.4;}
+.opt-letter{width:28px;height:28px;border-radius:8px;background:var(--warm);border:1.5px solid var(--sand);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;color:var(--text-muted);flex-shrink:0;transition:all .18s;margin-top:1px;}
+.opt:hover:not(.disabled){border-color:var(--terracotta);background:rgba(193,114,79,.04);transform:translateX(4px);}
+.opt:hover:not(.disabled) .opt-letter{background:var(--terracotta);border-color:var(--terracotta);color:white;}
+.opt.correct{border-color:var(--sage);background:rgba(107,143,113,.08);}
+.opt.correct .opt-letter{background:var(--sage);border-color:var(--sage);color:white;}
+.opt.wrong{border-color:var(--rose);background:rgba(212,117,107,.07);}
+.opt.wrong .opt-letter{background:var(--rose);border-color:var(--rose);color:white;}
+.opt.disabled{cursor:default;}
+.opt.disabled:not(.correct):not(.wrong){opacity:.55;}
+.opt-text{flex:1;}
+
+.feedback{margin-top:18px;border-radius:var(--rsm);padding:16px 18px;font-size:.88rem;line-height:1.65;display:none;animation:fadeIn .3s;border-left:4px solid;}
+.feedback.show{display:block;}
+.feedback.correct-fb{background:rgba(107,143,113,.1);border-color:var(--sage);}
+.feedback.wrong-fb{background:rgba(212,175,74,.1);border-color:var(--gold);}
+.fb-head{font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;margin-bottom:6px;}
+.correct-fb .fb-head{color:var(--sage);}
+.wrong-fb .fb-head{color:var(--gold);}
+
+.next-btn{width:100%;padding:16px;border-radius:var(--rsm);border:none;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;background:var(--navy);color:white;margin-top:16px;display:none;transition:all .2s;box-shadow:3px 3px 0 var(--charcoal);letter-spacing:.5px;}
+.next-btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 var(--charcoal);}
+.next-btn:active{transform:translateY(0);box-shadow:2px 2px 0 var(--charcoal);}
+.next-btn.show{display:block;animation:fadeIn .3s;}
+
+/* ===== RESULTS ===== */
+#results{display:none;animation:fadeUp .4s ease;}
+.results-card{background:white;border:1.5px solid var(--sand);border-radius:var(--r);padding:40px 32px;box-shadow:4px 4px 0 var(--sand);margin-bottom:16px;text-align:center;}
+.score-visual{width:160px;height:160px;margin:0 auto 28px;position:relative;}
+.score-svg{transform:rotate(-90deg);}
+.score-track{fill:none;stroke:var(--warm);stroke-width:10;}
+.score-arc{fill:none;stroke:var(--terracotta);stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);}
+.score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-pct{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--text);line-height:1;}
+.score-frac{font-size:.8rem;color:var(--text-muted);font-weight:500;margin-top:3px;}
+.result-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:8px;color:var(--text);}
+.result-sub{color:var(--text-muted);font-size:.92rem;line-height:1.6;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;}
+.breakdown-title{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;text-align:left;}
+.breakdown-list{text-align:left;}
+.bd-row{display:flex;align-items:center;gap:12px;margin-bottom:9px;padding:8px 12px;background:var(--cream);border-radius:8px;border:1px solid var(--warm);}
+.bd-emoji{font-size:1rem;flex-shrink:0;}
+.bd-name{flex:1;font-size:.8rem;font-weight:600;color:var(--text);line-height:1.3;}
+.bd-bar-wrap{width:80px;height:5px;background:var(--warm);border-radius:5px;overflow:hidden;}
+.bd-bar-fill{height:100%;border-radius:5px;}
+.bd-score{font-size:.78rem;font-weight:700;color:var(--text-muted);width:36px;text-align:right;white-space:nowrap;}
+
+.action-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn{padding:14px 28px;border-radius:var(--rsm);border:none;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px;}
+.btn-primary{background:var(--terracotta);color:white;box-shadow:3px 3px 0 var(--terra-dark);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:5px 5px 0 var(--terra-dark);}
+.btn-secondary{background:white;color:var(--text);border:1.5px solid var(--sand);box-shadow:2px 2px 0 var(--sand);}
+.btn-secondary:hover{transform:translateY(-2px);border-color:var(--navy);color:var(--navy);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:520px){
+  .logo-text{font-size:1.8rem;}
+  .mode-cards{grid-template-columns:1fr;}
+  .qcard{padding:22px 18px;}
+  .q-text{font-size:1rem;}
+  .opt{font-size:.87rem;}
+  .results-card{padding:28px 18px;}
+}
 </style>
 </head>
 <body>
 <div id="app">
 
+<!-- ===== HOME ===== -->
 <div id="home">
-  <div class="logo">🍼 Quiz CAP AEPE</div>
-  <div class="subtitle">Questions tirées directement des fiches de cours officielles</div>
-  <div class="source-badge">📚 Basé sur formationcappetiteenfance.com</div>
-  <div class="stats-row">
-    <div class="stat">✅ <span id="totalQ">0</span> questions</div>
-    <div class="stat">📂 <span id="totalCat">0</span> thèmes</div>
-    <div class="stat">🏆 Record : <span id="bestScore">–</span></div>
+  <div class="home-header">
+    <div class="logo-wrap">
+      <div class="logo-icon">🍼</div>
+      <div class="logo-text">Quiz <span>CAP</span> AEPE</div>
+    </div>
+    <p class="tagline">Révise avec des questions tirées des fiches de cours officielles</p>
+    <div class="source-chip">📚 formationcappetiteenfance.com</div>
   </div>
-
-  <div class="all-card" onclick="startQuiz('all')">
-    <div class="cat-icon">⚡</div>
-    <div class="cat-title">Tout réviser – Mode Examen Complet</div>
-    <div class="cat-count" id="cnt-all">Toutes les questions mélangées</div>
+  <div class="stats-strip">
+    <div class="stat-pill">✅ <strong id="totalQ">0</strong> questions</div>
+    <div class="stat-pill">📂 <strong id="totalCat">0</strong> thèmes</div>
+    <div class="stat-pill">🏆 Record : <strong id="bestScore">–</strong></div>
   </div>
-
+  <div class="section-label">Mode d'entraînement</div>
+  <div class="mode-cards">
+    <div class="mode-card exam" onclick="startQuiz('exam')">
+      <div class="mc-icon">🎓</div>
+      <div class="mc-title">Examen Complet</div>
+      <div class="mc-sub">Toutes les questions mélangées</div>
+    </div>
+    <div class="mode-card rapid" onclick="startQuiz('rapid')">
+      <div class="mc-icon">⚡</div>
+      <div class="mc-title">Session Rapide</div>
+      <div class="mc-sub">20 questions aléatoires</div>
+    </div>
+  </div>
+  <div class="section-label" style="margin-top:28px">Par thème</div>
   <div class="cat-grid" id="catGrid"></div>
 </div>
 
+<!-- ===== QUIZ ===== -->
 <div id="quiz">
-  <div class="qheader">
+  <div class="quiz-header">
     <button class="back-btn" onclick="goHome()">← Accueil</button>
-    <div class="prog-wrap">
-      <div class="prog-label"><span id="qNum">1/50</span><span id="catTag" class="cat-tag">–</span></div>
-      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="progress-block">
+      <div class="progress-meta">
+        <span class="progress-count" id="qNum">1/50</span>
+        <span class="cat-badge" id="catBadge">–</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
     </div>
-    <div class="score-box">✅ <span id="scoreDisp">0</span></div>
+    <div class="score-display"><div class="score-dot"></div><span id="scoreDisp">0</span></div>
   </div>
   <div class="qcard" id="qcard">
-    <div class="qnum" id="qNumInner">QUESTION 1</div>
-    <div class="qsource" id="qSource">–</div>
-    <div class="qtext" id="qText">–</div>
+    <div class="q-meta">
+      <span class="q-number" id="qNumInner">Question 1</span>
+      <span class="q-source-tag" id="qSourceTag">–</span>
+    </div>
+    <div class="q-text" id="qText">–</div>
     <div class="opts" id="optsContainer"></div>
-    <div class="fb" id="fb">
-      <div class="fb-title" id="fbTitle"></div>
-      <div id="fbText"></div>
+    <div class="feedback" id="feedbackEl">
+      <div class="fb-head" id="fbHead"></div>
+      <div id="fbBody"></div>
     </div>
     <button class="next-btn" id="nextBtn" onclick="nextQ()">Question suivante →</button>
   </div>
 </div>
 
+<!-- ===== RESULTS ===== -->
 <div id="results">
-  <div class="res-card">
-    <div class="score-ring" id="scoreRing">
-      <div class="score-inner">
-        <div class="res-pct" id="resPct">0%</div>
-        <div class="res-frac" id="resFrac">0/0</div>
+  <div class="results-card">
+    <div class="score-visual">
+      <svg class="score-svg" viewBox="0 0 160 160" width="160" height="160">
+        <circle class="score-track" cx="80" cy="80" r="70"/>
+        <circle class="score-arc" id="scoreArc" cx="80" cy="80" r="70"/>
+      </svg>
+      <div class="score-center">
+        <div class="score-pct" id="resPct">0%</div>
+        <div class="score-frac" id="resFrac">0/0</div>
       </div>
     </div>
-    <div class="res-msg" id="resMsg">–</div>
-    <div class="res-det" id="resDet">–</div>
-    <div class="cat-bd" id="catBd"></div>
+    <div class="result-title" id="resTitle">–</div>
+    <div class="result-sub" id="resSub">–</div>
+    <div class="breakdown-title">Résultats par thème</div>
+    <div class="breakdown-list" id="breakdown"></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-p" onclick="goHome()">🏠 Accueil</button>
-    <button class="btn btn-s" id="replayBtn">🔄 Rejouer</button>
+  <div class="action-row">
+    <button class="btn btn-primary" onclick="goHome()">🏠 Accueil</button>
+    <button class="btn btn-secondary" id="replayBtn">🔄 Rejouer</button>
   </div>
 </div>
 
 </div>
 <script>
 // ============================================================
-// TOUTES LES QUESTIONS tirées des fiches de cours officielles
+// BASE DE QUESTIONS — CAP AEPE
+// Les options sont mélangées à chaque partie (shuffleOptions)
 // ============================================================
-const ALL = [
+const QUESTIONS = [
+  // === 🧬 Biologie – Corps humain ===
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'De quoi est composée une cellule humaine ?',
+   opts:['Membrane, cytoplasme, organites et noyau','Os, muscles et tendons','Épiderme, derme et hypoderme','Neurones, axones et dendrites'],ans:0,
+   exp:'La cellule humaine comprend la membrane cellulaire (barrière externe), le cytoplasme, les organites et le noyau (centre de commande contenant l\'ADN).'},
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'Combien de chromosomes contient une cellule humaine normale (non sexuelle) ?',
+   opts:['23 chromosomes','46 chromosomes','48 chromosomes','92 chromosomes'],ans:1,
+   exp:'Toutes les cellules somatiques contiennent 46 chromosomes (23 paires). Les gamètes n\'en ont que 23 ; la fécondation reconstitue les 46.'},
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'Quels sont les 4 types de tissus du corps humain ?',
+   opts:['Épithélial, conjonctif, nerveux et musculaire','Osseux, cartilagineux, graisseux et cutané','Sanguin, lymphatique, digestif et respiratoire','Hépatique, rénal, pulmonaire et cardiaque'],ans:0,
+   exp:'Les 4 types de tissus : épithélial (revêtement), conjonctif (soutien/nutrition), nerveux (communication) et musculaire (contraction).'},
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'Quel système transporte l\'oxygène et les nutriments vers les cellules ?',
+   opts:['Le système nerveux','Le système circulatoire','Le système digestif','Le système locomoteur'],ans:1,
+   exp:'Le système circulatoire (cœur, artères, veines, capillaires) transporte O2 et nutriments vers les cellules et évacue les déchets.'},
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'Quels sont les deux types de division cellulaire ?',
+   opts:['La mitose et la méiose','La fission et la fusion','La croissance et la réduction','L\'apoptose et la nécrose'],ans:0,
+   exp:'La mitose (toutes cellules somatiques, croissance et réparation) et la méiose (gamètes seulement, produit des cellules à 23 chromosomes).'},
+  {cat:'🧬 Biologie – Corps humain',src:'Organisation du corps humain',
+   q:'Quel est le rôle principal du système lymphatique ?',
+   opts:['Produire des globules rouges','Défendre l\'organisme et drainer les liquides interstitiels','Digérer les graisses alimentaires','Réguler la glycémie'],ans:1,
+   exp:'Le système lymphatique draine les liquides entre les cellules et joue un rôle central dans l\'immunité en transportant les lymphocytes.'},
 
-  // ====== BIOLOGIE – Corps humain ======
-  { cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain', q:'De quoi est composée une cellule humaine (parties principales) ?', opts:['Membrane, cytoplasme, organites et noyau','Os, muscles et tendons','Épiderme, derme et hypoderme','Neurones, axones et dendrites'], ans:0, exp:'La cellule humaine se compose de la membrane cellulaire (barrière externe), du cytoplasme (gel contenant les organites), des organites (structures spécialisées) et du noyau (centre de commande contenant l\'ADN).' },
-  { cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain', q:'Combien de chromosomes contient une cellule humaine normale (non sexuelle) ?', opts:['23 chromosomes','46 chromosomes','48 chromosomes','92 chromosomes'], ans:1, exp:'Toutes les cellules humaines (sauf les gamètes) contiennent 46 chromosomes. Les cellules sexuelles (ovule, spermatozoïde) n\'en ont que 23, et c\'est la fécondation qui reconstitue les 46.' },
-  { cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain', q:'Quels sont les 4 types de tissus du corps humain ?', opts:['Épithélial, conjonctif, nerveux et musculaire','Osseux, cartilagineux, graisseux et cutané','Sanguin, lymphatique, digestif et respiratoire','Hépatique, rénal, pulmonaire et cardiaque'], ans:0, exp:'Il existe 4 types de tissus : épithélial (revêtement et protection), conjonctif (soutien, nutrition, réparation), nerveux (communication entre cellules via neurones) et musculaire (contraction et mouvement).' },
-  { cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain', q:'Quel système transporte l\'oxygène et les nutriments vers les cellules ?', opts:['Le système nerveux','Le système circulatoire','Le système digestif','Le système locomoteur'], ans:1, exp:'Le système circulatoire transporte l\'oxygène et les nutriments vers les cellules et évacue les déchets. Il est composé du cœur, des artères, des veines et des capillaires.' },
-  { cat:'🧬 Biologie – Corps humain', src:'Organisation du corps humain', q:'Quels sont les deux types de division cellulaire chez l\'humain ?', opts:['La mitose et la méiose','La fission et la fusion','La croissance et la réduction','L\'apoptose et la nécrose'], ans:0, exp:'La mitose concerne toutes les cellules (division ordinaire pour la croissance et la réparation). La méiose ne concerne que les cellules sexuelles (gamètes) et produit des cellules avec 23 chromosomes.' },
+  // === 🧬 Biologie – La peau ===
+  {cat:'🧬 Biologie – La peau',src:'La peau',
+   q:'De quelles 3 couches est composée la peau ?',
+   opts:['Épiderme, derme et hypoderme','Épiderme, muqueuse et derme','Kératine, mélanine et collagène','Cuticule, derme et tissu profond'],ans:0,
+   exp:'Épiderme (protection externe), derme (tissu vascularisé de soutien) et hypoderme (tissu adipeux profond).'},
+  {cat:'🧬 Biologie – La peau',src:'La peau',
+   q:'Quel est le rôle principal de la mélanine dans l\'épiderme ?',
+   opts:['Nourrir les kératinocytes','Absorber les UV et donner la couleur à la peau','Imperméabiliser la peau','Déclencher la cicatrisation'],ans:1,
+   exp:'La mélanine (produite par les mélanocytes) absorbe les UV, donne la couleur à la peau et la protège des dommages solaires.'},
+  {cat:'🧬 Biologie – La peau',src:'La peau',
+   q:'Quelle protéine produite par les kératinocytes assure l\'imperméabilité de la peau ?',
+   opts:['La mélanine','Le collagène','La kératine','L\'élastine'],ans:2,
+   exp:'La kératine est une protéine insoluble qui imperméabilise la peau et la protège contre les agressions mécaniques et la perte en eau.'},
+  {cat:'🧬 Biologie – La peau',src:'La peau',
+   q:'Quelle couche de la peau constitue la réserve énergétique et isole thermiquement ?',
+   opts:['L\'épiderme','Le derme','L\'hypoderme','La couche cornée'],ans:2,
+   exp:'L\'hypoderme, composé principalement de tissu adipeux, constitue la réserve d\'énergie et assure l\'isolation thermique du corps.'},
+  {cat:'🧬 Biologie – La peau',src:'La peau',
+   q:'Quel est le principal ennemi de la peau à protéger chez l\'enfant ?',
+   opts:['L\'eau du robinet','Le soleil (UV)','Le vent','Le froid uniquement'],ans:1,
+   exp:'Le soleil est le principal agresseur de la peau. Les coups de soleil répétés dès l\'enfance augmentent le risque de mélanome. Protection solaire et règles d\'hygiène doivent être enseignées dès le plus jeune âge.'},
 
-  // ====== BIOLOGIE – La peau ======
-  { cat:'🧬 Biologie – La peau', src:'La peau', q:'De quelles 3 couches est composée la peau ?', opts:['Épiderme, derme et hypoderme','Épiderme, muqueuse et derme','Kératine, mélanine et collagène','Extérieur, intérieur et profond'], ans:0, exp:'La peau se compose de 3 couches : l\'épiderme (couche externe, barrière protectrice), le derme (tissu de soutien, vascularisé) et l\'hypoderme (couche profonde adipeuse, réserve d\'énergie et isolation thermique).' },
-  { cat:'🧬 Biologie – La peau', src:'La peau', q:'Quel est le rôle de la mélanine dans l\'épiderme ?', opts:['Nourrir les cellules','Absorber les UVB pour produire la vitamine D','Imperméabiliser la peau','Cicatriser les plaies'], ans:1, exp:'Les mélanocytes de la couche basale produisent la mélanine, qui absorbe les rayons UVB du soleil pour produire la vitamine D. La mélanine donne aussi la couleur de la peau et protège contre les dommages UV.' },
-  { cat:'🧬 Biologie – La peau', src:'La peau', q:'Quelle protéine produite par les kératinocytes assure l\'imperméabilité de la peau ?', opts:['La mélanine','Le collagène','La kératine','L\'élastine'], ans:2, exp:'Les kératinocytes de la couche épineuse produisent de la kératine, une protéine insoluble qui assure l\'imperméabilité et la protection de la peau contre les agressions externes et la perte en eau.' },
-  { cat:'🧬 Biologie – La peau', src:'La peau', q:'Quel est le rôle principal du derme ?', opts:['Barrière externe contre les microbes','Nutrition, thermorégulation et cicatrisation','Stockage des graisses','Production de mélanine'], ans:1, exp:'Le derme, couche épaisse et vascularisée sous l\'épiderme, assure la nutrition de l\'épiderme, la thermorégulation du corps et la cicatrisation. Il contient des fibres conjonctives, des follicules pileux et des glandes sudoripares.' },
-  { cat:'🧬 Biologie – La peau', src:'La peau', q:'Pourquoi faut-il apprendre aux enfants les règles d\'hygiène de la peau ?', opts:['Pour qu\'ils sentent bon','Pour protéger la peau des agressions et préserver la santé dès le plus jeune âge','Pour économiser l\'eau','Pour éviter les allergies alimentaires'], ans:1, exp:'La peau est directement exposée aux agressions extérieures. Nettoyage, protection et nutrition quotidiens sont indispensables. Le soleil est le principal agresseur (coups de soleil, cancer). Apprendre ces règles aux enfants dès le plus jeune âge est essentiel.' },
+  // === 🧬 Biologie – Micro-organismes ===
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Qu\'est-ce qu\'un micro-organisme pathogène ?',
+   opts:['Un micro-organisme inoffensif de la flore intestinale','Un micro-organisme nocif capable de provoquer des maladies','Un micro-organisme visible à l\'œil nu','Un micro-organisme bénéfique pour la digestion'],ans:1,
+   exp:'Un micro-organisme pathogène est nocif et peut provoquer des maladies, parfois graves. Il se distingue des micro-organismes inoffensifs ou bénéfiques.'},
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Quelle est la caractéristique principale des bactéries ?',
+   opts:['Organismes pluricellulaires avec noyau délimité','Organismes unicellulaires procaryotes (sans noyau)','Virus de grande taille','Champignons microscopiques à membrane nucléaire'],ans:1,
+   exp:'Les bactéries sont unicellulaires et procaryotes : leur ADN flotte directement dans le cytoplasme, sans noyau délimité par une membrane.'},
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Un virus peut-il se reproduire sans cellule hôte vivante ?',
+   opts:['Oui, dans n\'importe quel milieu humide','Non, il ne se reproduit qu\'à l\'intérieur d\'une cellule hôte','Oui, mais seulement à 37°C','Oui, en milieu anaérobie'],ans:1,
+   exp:'Le virus est un parasite intracellulaire obligatoire : sans cellule hôte, il n\'a aucune activité métabolique et ne peut pas se reproduire.'},
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Quelle infection est causée par le champignon Candida albicans chez le nourrisson ?',
+   opts:['La rougeole','La varicelle','Le muguet buccal','La scarlatine'],ans:2,
+   exp:'Le muguet buccal est une infection fongique due à Candida albicans, fréquente chez le nourrisson. Points blancs sur la muqueuse, succion douloureuse, traitement antifongique.'},
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Quelle maladie est causée par le protozoaire parasite Plasmodium ?',
+   opts:['La grippe saisonnière','Le paludisme (malaria)','La rougeole','La tuberculose'],ans:1,
+   exp:'Plasmodium, transmis par la piqûre du moustique Anophèle, cause le paludisme. C\'est une des maladies parasitaires les plus meurtrières au monde.'},
+  {cat:'🧬 Biologie – Micro-organismes',src:'Pouvoir pathogène',
+   q:'Quelle différence entre une endotoxine et une exotoxine ?',
+   opts:['Endotoxines = libérées à la destruction des bactéries ; exotoxines = sécrétées par des bactéries vivantes','Elles ont exactement le même mode d\'action','Les endotoxines sont systématiquement plus virulentes','Les exotoxines ne provoquent jamais de maladie'],ans:0,
+   exp:'Endotoxines : dans la membrane bactérienne, libérées à la mort de la bactérie (choc septique possible). Exotoxines : sécrétées par des bactéries vivantes, très virulentes, servent à fabriquer certains vaccins (anti-tétanique).'},
 
-  // ====== BIOLOGIE – Micro-organismes ======
-  { cat:'🧬 Biologie – Micro-organismes', src:'Pouvoir pathogène des micro-organismes', q:'Qu\'est-ce qu\'un micro-organisme pathogène ?', opts:['Un micro-organisme inoffensif','Un micro-organisme visible à l\'œil nu','Un micro-organisme nocif capable de provoquer des maladies','Un micro-organisme bénéfique pour la santé'], ans:2, exp:'Les micro-organismes pathogènes sont des organismes microscopiques nocifs pouvant provoquer des maladies, parfois graves. Certains sont très virulents. Ils se distinguent des micro-organismes inoffensifs ou bénéfiques.' },
-  { cat:'🧬 Biologie – Micro-organismes', src:'Pouvoir pathogène des micro-organismes', q:'Quelle est la caractéristique principale des bactéries ?', opts:['Ce sont des organismes pluricellulaires avec noyau','Ce sont des organismes unicellulaires procaryotes (sans noyau)','Ce sont des virus géants','Ce sont des champignons microscopiques'], ans:1, exp:'Les bactéries sont des organismes unicellulaires et procaryotes, ce qui signifie qu\'elles n\'ont pas de noyau délimité par une membrane. Leur matériel génétique (ADN) flotte dans le cytoplasme.' },
-  { cat:'🧬 Biologie – Micro-organismes', src:'Pouvoir pathogène des micro-organismes', q:'Quelle maladie est causée par un protozoaire parasite ?', opts:['La grippe','Le paludisme (malaria)','La rougeole','La tuberculose'], ans:1, exp:'Les protozoaires sont des organismes unicellulaires eucaryotes (avec noyau). Certains sont des parasites qui vivent aux dépens d\'autres organismes. Le paludisme (malaria) est causé par le protozoaire Plasmodium.' },
-  { cat:'🧬 Biologie – Micro-organismes', src:'Pouvoir pathogène des micro-organismes', q:'Quelle maladie chez l\'enfant est causée par un champignon microscopique (candida albicans) ?', opts:['La rougeole','La varicelle','Le muguet buccal','La scarlatine'], ans:2, exp:'Le muguet buccal est une infection due au champignon Candida albicans. Il touche particulièrement le nourrisson. Il se manifeste par une inflammation buccale avec des points blancs et une succion douloureuse.' },
-  { cat:'🧬 Biologie – Micro-organismes', src:'Pouvoir pathogène des micro-organismes', q:'Quelle est la différence entre une endotoxine et une exotoxine ?', opts:['Aucune différence','Les endotoxines sont libérées lors de la destruction des bactéries, les exotoxines sont libérées par des bactéries vivantes','Les endotoxines sont plus virulentes','Les exotoxines ne provoquent pas de maladies'], ans:1, exp:'Les endotoxines sont dans la membrane des bactéries et libérées lors de leur destruction (risque : intoxication alimentaire, choc septique). Les exotoxines sont libérées par des bactéries vivantes ; plus virulentes et immunogènes, elles servent à fabriquer certains vaccins (ex: anti-tétanique).' },
+  // === 🧬 Biologie – Défense de l'organisme ===
+  {cat:'🧬 Biologie – Défense de l\'organisme',src:'Défense de l\'organisme',
+   q:'Qu\'est-ce que l\'immunité innée (non spécifique) ?',
+   opts:['La mémoire immunitaire contre des agents déjà rencontrés','La 1ère ligne de défense qui réagit contre tout agent sans distinction','Les anticorps produits par les lymphocytes B','La réponse générée après vaccination'],ans:1,
+   exp:'L\'immunité innée est immédiate et non spécifique. Elle agit contre tout agent étranger sans distinction : peau, muqueuses, mucus, phagocytose, cellules NK.'},
+  {cat:'🧬 Biologie – Défense de l\'organisme',src:'Défense de l\'organisme',
+   q:'Qu\'est-ce que la phagocytose ?',
+   opts:['La production d\'anticorps spécifiques par les B','La destruction directe des cellules cancéreuses','L\'ingestion et la digestion des pathogènes par des cellules phagocytaires','La vaccination contre les bactéries'],ans:2,
+   exp:'Des cellules phagocytaires (macrophages, neutrophiles) migrent vers une lésion, ingèrent et digèrent les agents pathogènes : c\'est la phagocytose, mécanisme clé de l\'immunité innée.'},
+  {cat:'🧬 Biologie – Défense de l\'organisme',src:'Défense de l\'organisme',
+   q:'Quel rôle jouent les lymphocytes B dans l\'immunité adaptative ?',
+   opts:['Détruire directement les virus par contact physique','Synthétiser des anticorps spécifiques contre des antigènes','Déclencher la réaction inflammatoire locale','Produire des globules rouges en cas d\'anémie'],ans:1,
+   exp:'Les lymphocytes B synthétisent des anticorps spécifiques contre un antigène particulier. Les lymphocytes T coordonnent la réponse et détruisent les cellules infectées.'},
+  {cat:'🧬 Biologie – Défense de l\'organisme',src:'Défense de l\'organisme',
+   q:'Comment fonctionne un vaccin pour protéger l\'organisme ?',
+   opts:['Il détruit directement les bactéries présentes','Il injecte un antigène inactivé pour créer une mémoire immunitaire','Il renforce la musculature','Il aide le foie à détoxifier l\'organisme'],ans:1,
+   exp:'Le vaccin injecte un antigène inactivé ou atténué. L\'organisme produit les anticorps correspondants et garde une mémoire immunitaire pour réagir vite si le vrai pathogène se présente.'},
+  {cat:'🧬 Biologie – Défense de l\'organisme',src:'Défense de l\'organisme',
+   q:'Quel est le rôle du mucus des muqueuses dans la défense ?',
+   opts:['Nourrir les cellules muqueuses en profondeur','Piéger et neutraliser les agents pathogènes','Produire des anticorps locaux','Réguler la température corporelle'],ans:1,
+   exp:'Le mucus produit par les muqueuses (voies respiratoires, digestives, génitales) piège les agents pathogènes et peut les neutraliser — barrière physico-chimique de l\'immunité innée.'},
 
-  // ====== BIOLOGIE – Défense de l'organisme ======
-  { cat:'🧬 Biologie – Défense de l\'organisme', src:'Défense de l\'organisme', q:'Qu\'est-ce que l\'immunité non spécifique (innée) ?', opts:['La mémoire immunitaire contre des agents connus','La première ligne de défense qui agit sans tenir compte du type d\'agent pathogène','Les anticorps fabriqués par les lymphocytes B','La réponse vaccinale'], ans:1, exp:'L\'immunité innée est la première ligne de défense. Elle est non spécifique : elle réagit contre tout agent étranger, sans distinction. Elle comprend la peau, les lysozymes, les muqueuses, la phagocytose et les cellules NK.' },
-  { cat:'🧬 Biologie – Défense de l\'organisme', src:'Défense de l\'organisme', q:'Qu\'est-ce que la phagocytose ?', opts:['La production d\'anticorps','La destruction des cellules cancéreuses','L\'ingestion et la digestion des agents pathogènes par des cellules phagocytaires','La vaccination contre les bactéries'], ans:2, exp:'Quand un agent infectieux pénètre dans l\'organisme, des cellules phagocytaires migrent vers la lésion et ingèrent/digèrent les pathogènes. C\'est la phagocytose, un mécanisme clé de l\'immunité innée.' },
-  { cat:'🧬 Biologie – Défense de l\'organisme', src:'Défense de l\'organisme', q:'Quel rôle jouent les lymphocytes B dans l\'immunité spécifique ?', opts:['Détruire directement les virus','Synthétiser des anticorps dirigés contre des antigènes spécifiques','Déclencher l\'inflammation','Absorber les nutrients'], ans:1, exp:'Les lymphocytes B font partie de l\'immunité spécifique (acquise). Ils synthétisent des anticorps dirigés contre un antigène particulier. Les lymphocytes T, eux, dirigent la réponse immunitaire et collaborent avec d\'autres cellules pour détruire l\'antigène.' },
-  { cat:'🧬 Biologie – Défense de l\'organisme', src:'Défense de l\'organisme', q:'Comment fonctionne un vaccin pour protéger l\'organisme ?', opts:['Il tue directement les bactéries','Il injecte un antigène tué ou atténué pour que l\'organisme produise l\'anticorps correspondant','Il renforce les muscles','Il détoxifie le foie'], ans:1, exp:'La vaccination injecte un antigène tué ou modifié. L\'organisme produit alors l\'anticorps spécifique. Si le vrai agent pathogène se présente plus tard, le corps réagit rapidement grâce à la mémoire immunitaire.' },
-  { cat:'🧬 Biologie – Défense de l\'organisme', src:'Défense de l\'organisme', q:'Quel est le rôle du mucus produit par les muqueuses ?', opts:['Nourrir les cellules','Piéger et parfois tuer les agents pathogènes','Produire des anticorps','Réguler la température corporelle'], ans:1, exp:'Les membranes muqueuses (appareil génital, digestif, respiratoire) produisent du mucus qui piège les agents pathogènes et peut même les tuer. C\'est une barrière physique de l\'immunité non spécifique.' },
+  // === 🥗 Nutrition – Besoins nutritionnels ===
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Quels sont les 3 macronutriments énergétiques essentiels ?',
+   opts:['Vitamines, minéraux et eau','Protéines, glucides et lipides','Fibres, glucides et vitamines','Calcium, fer et phosphore'],ans:1,
+   exp:'Les 3 macronutriments : protéines (construction tissus), glucides (énergie rapide) et lipides (énergie et fonctions structurales).'},
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Quelle est la principale source d\'énergie du corps et du cerveau ?',
+   opts:['Les lipides alimentaires','Les protéines animales','Les glucides (glucose)','Les vitamines hydrosolubles'],ans:2,
+   exp:'Les glucides fournissent du glucose, énergie principale des cellules. Le cerveau fonctionne essentiellement au glucose et ne peut pas utiliser directement les acides gras.'},
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Quelle est la différence entre glucides simples et glucides complexes ?',
+   opts:['Les simples ont une saveur sucrée (lactose, fructose, saccharose), les complexes n\'en ont pas (céréales, riz, pâtes)','Les simples sont toujours plus sains','Aucune différence nutritionnelle','Les complexes ont une saveur sucrée prononcée'],ans:0,
+   exp:'Glucides simples : saveur sucrée (lactose, fructose, saccharose). Glucides complexes : sans goût sucré, digestion plus lente (céréales, pâtes, riz, légumineuses).'},
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Quelles vitamines sont liposolubles et peuvent être stockées dans l\'organisme ?',
+   opts:['Vitamines B et C','Vitamines A, D, E et K','Vitamines B1, B6, B9 et C','Toutes les vitamines le sont'],ans:1,
+   exp:'Vitamines liposolubles (A, D, E, K) : stockées dans l\'organisme. Vitamines hydrosolubles (B1→B12, C) : non stockées, éliminées dans l\'urine si excès.'},
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Combien de groupes d\'aliments composent une alimentation équilibrée ?',
+   opts:['3 groupes','4 groupes','6 groupes','8 groupes'],ans:2,
+   exp:'6 groupes : produits laitiers, viandes/poissons/œufs, féculents, végétaux frais, corps gras et produits sucrés.'},
+  {cat:'🥗 Nutrition – Besoins nutritionnels',src:'Les besoins nutritionnels',
+   q:'Quel minéral est essentiel à la solidité des os et des dents chez l\'enfant ?',
+   opts:['Le fer','Le magnésium','Le calcium','Le zinc'],ans:2,
+   exp:'Le calcium est le minéral clé de la solidité osseuse et dentaire, particulièrement important pendant la croissance. Principal source : produits laitiers.'},
 
-  // ====== NUTRITION – Besoins nutritionnels ======
-  { cat:'🥗 Nutrition – Besoins nutritionnels', src:'Les besoins nutritionnels', q:'Quels sont les 3 nutriments énergétiques essentiels ?', opts:['Vitamines, minéraux et eau','Protéines, glucides et lipides','Fibres, glucides et vitamines','Calcium, fer et phosphore'], ans:1, exp:'Les 3 nutriments énergétiques sont les protéines (construction des tissus), les glucides (principale source d\'énergie) et les lipides (source et réserve d\'énergie). Ensemble, ils fournissent l\'énergie nécessaire à l\'organisme.' },
-  { cat:'🥗 Nutrition – Besoins nutritionnels', src:'Les besoins nutritionnels', q:'Quelle est la principale source d\'énergie du corps et du cerveau ?', opts:['Les lipides','Les protéines','Les glucides (glucose)','Les vitamines'], ans:2, exp:'Les glucides constituent la principale source d\'énergie. Ils fournissent du glucose que les cellules convertissent en énergie. Le cerveau, notamment, fonctionne essentiellement au glucose.' },
-  { cat:'🥗 Nutrition – Besoins nutritionnels', src:'Les besoins nutritionnels', q:'Quelle est la différence entre glucides simples et glucides complexes ?', opts:['Les glucides simples ont une saveur sucrée (lactose, fructose, saccharose), les complexes n\'en ont pas (céréales, pâtes, riz)','Les glucides simples sont meilleurs pour la santé','Il n\'y a pas de différence','Les glucides complexes sont sucrés'], ans:0, exp:'Les glucides simples ont une saveur sucrée : lactose (lait), fructose (fruits), saccharose (sucre blanc). Les glucides complexes sont sans saveur sucrée : on les trouve dans les céréales, pâtes, riz, certains légumes.' },
-  { cat:'🥗 Nutrition – Besoins nutritionnels', src:'Les besoins nutritionnels', q:'Quelles vitamines sont dites "liposolubles" (stockées dans le corps) ?', opts:['Vitamines B et C','Vitamines A, D, E et K','Vitamines B1, B6, B9 et C','Toutes les vitamines'], ans:1, exp:'Les vitamines liposolubles (A, D, E, K) sont présentes dans les produits laitiers et peuvent être stockées dans l\'organisme. Les vitamines hydrosolubles (B1, B2, B3, B5, B6, B8, B9, B12, C) ne sont pas stockées et tout excédent est éliminé dans l\'urine.' },
-  { cat:'🥗 Nutrition – Besoins nutritionnels', src:'Les besoins nutritionnels', q:'Combien de groupes d\'aliments composent une alimentation équilibrée ?', opts:['3 groupes','4 groupes','6 groupes','8 groupes'], ans:2, exp:'Il existe 6 groupes d\'aliments : produits laitiers, viandes/poissons/œufs, féculents, végétaux frais, corps gras et produits sucrés. Un repas équilibré doit idéalement comporter des aliments de chacun de ces groupes.' },
+  // === 🍼 Nutrition – Alimentation lactée ===
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'Jusqu\'à quel âge l\'alimentation est-elle exclusivement lactée ?',
+   opts:['2 mois','4 mois','4 à 6 mois','12 mois'],ans:2,
+   exp:'De 0 à 4-6 mois, alimentation exclusivement lactée. Le système digestif immature ne peut traiter les protéines d\'autres aliments sans risque d\'allergie.'},
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'Quel est l\'avantage principal du lait maternel par rapport au lait infantile ?',
+   opts:['Il coûte moins cher et se conserve mieux','Il s\'adapte aux besoins du bébé et apporte les anticorps maternels','Il est plus riche en vitamine D','Il est plus visqueux et donc plus rassasiant'],ans:1,
+   exp:'Le lait maternel s\'adapte en temps réel aux besoins du bébé et lui transmet les anticorps maternels pour se défendre contre les infections.'},
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'Quelle est la règle d\'Appert pour calculer la ration lactée ?',
+   opts:['Poids × 10 + 250 = ml/jour','Poids (en g) ÷ 10 + 250 = ml/jour','Poids × 100 = ml/jour','Âge en semaines × 30 = ml/jour'],ans:1,
+   exp:'Règle d\'Appert : Poids (en grammes) ÷ 10 + 250 = quantité totale de lait par jour en ml. Repère indicatif à adapter selon l\'appétit et l\'avis médical.'},
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'Quel lait est recommandé entre 4-6 mois et 12 mois ?',
+   opts:['Lait 1er âge','Lait 2ème âge','Lait de croissance','Lait de vache entier'],ans:1,
+   exp:'Le lait 2ème âge est adapté entre 4-6 mois et 12 mois. Le lait reste essentiel : calcium, protéines, iode, vitamines B12 et D.'},
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'À partir de quel âge la diversification alimentaire peut-elle débuter ?',
+   opts:['2 mois','4 mois','6 mois','12 mois'],ans:2,
+   exp:'La diversification commence à 6 mois pour éviter troubles digestifs et allergies. On commence par les fromages, yaourts, puis légumes et fruits.'},
+  {cat:'🍼 Nutrition – Alimentation lactée',src:'Alimentation lactée',
+   q:'Comment vérifier la température d\'un biberon avant de le donner au bébé ?',
+   opts:['En le goûtant avec une cuillère','En versant quelques gouttes sur la face interne du poignet','En observant si de la vapeur se dégage','Avec un thermomètre de cuisine'],ans:1,
+   exp:'On verse quelques gouttes sur la face interne du poignet (zone très sensible). Le lait doit être tiède (~37°C), jamais brûlant.'},
 
-  // ====== NUTRITION – Alimentation lactée ======
-  { cat:'🍼 Nutrition – Alimentation lactée', src:'Alimentation lactée', q:'Jusqu\'à quel âge l\'alimentation est-elle exclusivement lactée ?', opts:['2 mois','4 mois','4 à 6 mois','12 mois'], ans:2, exp:'De la naissance à 4-6 mois, l\'alimentation est exclusivement lactée (lait maternel ou lait 1er âge). Le système digestif est immature et ne peut pas encore digérer les protéines des autres aliments.' },
-  { cat:'🍼 Nutrition – Alimentation lactée', src:'Alimentation lactée', q:'Quel est l\'avantage principal du lait maternel par rapport au lait infantile ?', opts:['Il est moins cher','Il s\'adapte aux besoins du bébé et apporte les anticorps nécessaires','Il dure plus longtemps','Il est plus facile à préparer'], ans:1, exp:'Le lait maternel est préférable car il s\'adapte aux besoins spécifiques du bébé et lui apporte les anticorps nécessaires pour se défendre contre les infections. Il est considéré comme l\'aliment idéal pour le nourrisson.' },
-  { cat:'🍼 Nutrition – Alimentation lactée', src:'Alimentation lactée', q:'Quelle est la règle d\'Appert pour calculer la ration lactée jusqu\'à 6 mois ?', opts:['Poids x 10 + 250 = ml de lait','Poids / 10 + 250 = ml de lait','Poids x 100 = ml de lait','Âge en semaines x 30 = ml de lait'], ans:1, exp:'La règle d\'Appert permet de calculer la ration lactée : Poids de l\'enfant (en grammes) / 10 + 250 = quantité de lait recommandée en ml par jour. C\'est un repère indicatif à adapter selon l\'appétit et les recommandations du médecin.' },
-  { cat:'🍼 Nutrition – Alimentation lactée', src:'Alimentation lactée', q:'Quel lait est recommandé entre 4-6 mois et 12 mois ?', opts:['Lait 1er âge','Lait 2ème âge','Lait de croissance','Lait de vache entier'], ans:1, exp:'Entre 4-6 mois et 12 mois, on passe au lait 2ème âge. L\'alimentation lactée reste primordiale même après 6 mois car le lait est une excellente source de calcium, protéines, iode, vitamine B12 et D.' },
-  { cat:'🍼 Nutrition – Alimentation lactée', src:'Alimentation lactée', q:'À partir de quel âge la diversification alimentaire doit-elle débuter ?', opts:['2 mois','4 mois','6 mois','12 mois'], ans:2, exp:'La diversification alimentaire ne doit commencer qu\'à partir de 6 mois pour éviter les risques de troubles digestifs et d\'allergies. L\'apparition des premières dents favorise ce passage. On commence par des fromages et yaourts natures.' },
+  // === 🏥 SMS – Maladies infectieuses ===
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'La varicelle est causée par quel agent ?',
+   opts:['Le paramyxovirus (rougeole)','Le virus varicelle-zona (VZV)','Le rotavirus','Le streptocoque groupe A'],ans:1,
+   exp:'La varicelle est due au VZV (virus varicelle-zona). Ce virus peut rester latent et réapparaître à l\'âge adulte sous forme de zona. Contagiosité : 2-4 jours avant l\'éruption jusqu\'à 5-7 jours après.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'Quelle maladie éruptive est d\'origine BACTÉRIENNE ?',
+   opts:['La varicelle','La rougeole','La rubéole','La scarlatine'],ans:3,
+   exp:'La scarlatine est la seule maladie éruptive bactérienne (streptocoque groupe A). Les autres (varicelle, rougeole, rubéole) sont virales — les antibiotiques n\'y sont pas efficaces.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'Quels symptômes caractérisent la rougeole ?',
+   opts:['Gonflement uniquement derrière les oreilles','Éruption débutant par le visage, fièvre 39-40°C, larmoiements, toux','Petites vésicules prurigineuses sur tout le corps','Toux aboyante nocturne uniquement'],ans:1,
+   exp:'La rougeole est très contagieuse : éruption qui débute au visage, fièvre 39-40°C, larmoiements, écoulement nasal et toux. Complications possibles : otite, pneumonie, encéphalite.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'Quel est le meilleur moyen de prévention contre les maladies infectieuses ?',
+   opts:['Le lavage des mains seul','La vaccination','Les antibiotiques en traitement préventif','L\'isolement permanent de l\'enfant'],ans:1,
+   exp:'La vaccination reste le meilleur moyen de prévention collective. Elle évite maladies graves, épidémies et complications. Les professionnels informent et sensibilisent les familles.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'La coqueluche est causée par quelle bactérie ?',
+   opts:['Le streptocoque β-hémolytique','Le staphylocoque doré','La Bordetella pertussis','Le méningocoque'],ans:2,
+   exp:'Bordetella pertussis provoque des quintes de toux avec inspirations sifflantes et vomissements. Gravissime chez le nourrisson non vacciné.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'Combien de jours avant la parotide les oreillons sont-ils déjà contagieux ?',
+   opts:['1 jour','3 jours','7 jours','14 jours'],ans:2,
+   exp:'La contagiosité débute 7 jours avant l\'apparition de la parotide et se prolonge jusqu\'à 9 jours après.'},
+  {cat:'🏥 SMS – Maladies infectieuses',src:'Maladies infectieuses',
+   q:'Quelle complication grave peut causer la rubéole chez une femme enceinte non immunisée ?',
+   opts:['Un ictère néonatal','Des malformations congénitales graves du fœtus','Une pneumonie néonatale','Une allergie alimentaire grave'],ans:1,
+   exp:'La rubéole, bénigne chez l\'enfant, est très dangereuse pour une femme enceinte non immunisée : malformations congénitales cardiaques, oculaires et auditives, surtout au 1er trimestre.'},
 
-  // ====== SMS – Maladies infectieuses ======
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'La varicelle est causée par quel virus ?', opts:['Le virus de la rougeole','Le virus varicelle-zona','Le rotavirus','Le streptocoque'], ans:1, exp:'La varicelle est causée par le virus varicelle-zona (VZV). Ce virus peut rester latent dans l\'organisme et réapparaître à l\'âge adulte sous forme de zona. La contagiosité dure de 2-4 jours avant l\'éruption jusqu\'à 5-7 jours après.' },
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'Parmi ces maladies éruptives, laquelle est d\'origine BACTÉRIENNE (et non virale) ?', opts:['La varicelle','La rougeole','La rubéole','La scarlatine'], ans:3, exp:'La scarlatine est la seule maladie éruptive d\'origine bactérienne. Toutes les autres maladies éruptives (varicelle, rougeole, rubéole) sont d\'origine virale, donc les antibiotiques ne sont pas efficaces contre elles.' },
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'Quels symptômes caractérisent la rougeole ?', opts:['Gonflement derrière les oreilles uniquement','Éruption cutanée débutant par le visage, fièvre 39-40°, larmoiements, écoulement nasal, toux','Petites vésicules avec démangeaisons sur tout le corps','Toux aboyante nocturne'], ans:1, exp:'La rougeole est très contagieuse. Elle se manifeste par une éruption cutanée qui commence par le visage, avec fièvre à 39-40°, larmoiements, écoulement nasal et toux. Elle peut provoquer des complications graves (otite, pneumonie, encéphalite).' },
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'Quel est le meilleur moyen de prévention contre les maladies infectieuses ?', opts:['Le lavage des mains seul','La vaccination','Les antibiotiques préventifs','L\'isolement de l\'enfant'], ans:1, exp:'La vaccination reste le meilleur moyen de prévention contre les maladies infectieuses. Il est important d\'informer les parents sur l\'importance des vaccins, des rappels et de les tenir au courant du calendrier vaccinal.' },
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'La coqueluche est causée par quelle bactérie ?', opts:['Le streptocoque','Le staphylocoque','La bacille de Bordet-Gengou','Le méningocoque'], ans:2, exp:'La coqueluche est une maladie très contagieuse causée par la bactérie Bordetella pertussis (bacille de Bordet-Gengou). Elle se manifeste par une toux sèche évoluant en quintes de toux avec inspirations sifflantes et vomissements.' },
-  { cat:'🏥 SMS – Maladies infectieuses', src:'Maladies infectieuses', q:'Pendant combien de jours les oreillons sont-ils contagieux avant l\'apparition de la parotide ?', opts:['1 jour avant','3 jours avant','7 jours avant','14 jours avant'], ans:2, exp:'Pour les oreillons, le pouvoir de contagion commence 7 jours avant l\'apparition de la parotide (gonflement douloureux derrière les oreilles) et se poursuit jusqu\'à 9 jours après cette apparition.' },
+  // === 🧴 SMS – Affections peau & muqueuses ===
+  {cat:'🧴 SMS – Affections peau & muqueuses',src:'Affections peau et muqueuses',
+   q:'L\'érythème fessier est-il contagieux ?',
+   opts:['Oui, très contagieux en collectivité','Oui, modérément par contact direct','Non, pas du tout contagieux','Seulement s\'il est d\'origine bactérienne'],ans:2,
+   exp:'L\'érythème fessier (dermite du siège) est une dermatose bénigne NON contagieuse, causée par contact prolongé avec une couche souillée. Traitement : hygiène rigoureuse et crème protectrice.'},
+  {cat:'🧴 SMS – Affections peau & muqueuses',src:'Affections peau et muqueuses',
+   q:'Où se localise l\'eczéma chez l\'enfant ?',
+   opts:['Sur le cuir chevelu uniquement','Sur les fesses et le dos','Sur le visage et les plis d\'articulation (coudes, poignets, genoux)','Sur les pieds uniquement'],ans:2,
+   exp:'L\'eczéma (non contagieux, souvent allergique) se localise au visage et aux plis d\'articulation. Plaques rouges → vésicules suintantes → croûtes.'},
+  {cat:'🧴 SMS – Affections peau & muqueuses',src:'Affections peau et muqueuses',
+   q:'L\'impétigo : quelle origine et quel niveau de contagiosité ?',
+   opts:['Non contagieux, d\'origine virale','Très contagieux, d\'origine bactérienne (streptocoque ou staphylocoque)','Peu contagieux, d\'origine allergique','Non contagieux, d\'origine parasitaire'],ans:1,
+   exp:'L\'impétigo est très contagieux et bactérien (streptocoque ou staphylocoque). Bulles → croûtes suintantes. Traitement antibiotique nécessaire.'},
+  {cat:'🧴 SMS – Affections peau & muqueuses',src:'Affections peau et muqueuses',
+   q:'Qu\'est-ce que la conjonctivite et comment se manifeste-t-elle ?',
+   opts:['Une infection de l\'oreille interne','Une infection très contagieuse de la conjonctive avec yeux rouges et écoulement','Une maladie de peau à streptocoque','Une infection intestinale bactérienne'],ans:1,
+   exp:'Infection contagieuse de la conjonctive (bactérienne ou virale). Yeux et paupières rouges, larmoiements, photophobie, écoulement purulent.'},
+  {cat:'🧴 SMS – Affections peau & muqueuses',src:'Affections peau et muqueuses',
+   q:'Qu\'est-ce que le muguet buccal ?',
+   opts:['Une infection virale des gencives','Une infection par Candida albicans de la muqueuse buccale, surtout chez le nourrisson','Une inflammation des dents de lait','Une maladie héréditaire des muqueuses'],ans:1,
+   exp:'Le muguet est une infection fongique (Candida albicans) de la muqueuse buccale, fréquente chez le nourrisson. Points blancs, succion douloureuse. Traitement antifongique.'},
 
-  // ====== SMS – Affections peau ======
-  { cat:'🧴 SMS – Affections peau & muqueuses', src:'Affections peau et muqueuses', q:'L\'érythème fessier est-il contagieux ?', opts:['Oui, très contagieux','Oui, modérément contagieux','Non, il n\'est pas contagieux','Seulement dans les collectivités'], ans:2, exp:'L\'érythème fessier (dermite du siège) est une dermatose érythémateuse bénigne et NON contagieuse. Il est causé par un défaut d\'hygiène (couche souillée non changée) ou une diarrhée. Il nécessite surtout une hygiène rigoureuse, pas de traitement médicamenteux spécifique.' },
-  { cat:'🧴 SMS – Affections peau & muqueuses', src:'Affections peau et muqueuses', q:'Où se situe principalement l\'eczéma chez l\'enfant ?', opts:['Sur le cuir chevelu uniquement','Sur les fesses','Sur le visage et les plis d\'articulation (poignets, coudes, genoux)','Sur les pieds seulement'], ans:2, exp:'L\'eczéma, une dermatose non contagieuse, se localise principalement au niveau du visage et des plis d\'articulation (poignets, coudes, genoux). Il se manifeste par des plaques rouges irrégulières évoluant en vésicules suintantes puis en croûtes.' },
-  { cat:'🧴 SMS – Affections peau & muqueuses', src:'Affections peau et muqueuses', q:'L\'impétigo est-il contagieux et quelle en est l\'origine ?', opts:['Non contagieux, d\'origine virale','Très contagieux, d\'origine bactérienne (streptocoque ou staphylocoque)','Peu contagieux, d\'origine allergique','Non contagieux, d\'origine parasitaire'], ans:1, exp:'L\'impétigo est une dermatose infectieuse très contagieuse d\'origine bactérienne (streptocoque ou staphylocoque). Il se manifeste par de petites bulles qui se rompent puis forment des croûtes suintantes et sèches. Un traitement adéquat est nécessaire.' },
-  { cat:'🧴 SMS – Affections peau & muqueuses', src:'Affections peau et muqueuses', q:'Qu\'est-ce que la conjonctivite ?', opts:['Une infection de l\'oreille','Une infection très contagieuse de la conjonctive (œil), avec yeux rouges et écoulement','Une maladie de peau','Une infection intestinale'], ans:1, exp:'La conjonctivite est une infection très contagieuse de la conjonctive (membrane de l\'œil). Elle peut être causée par une bactérie ou un virus. Symptômes : yeux et paupières rouges, larmoiements, photophobie, écoulement purulent.' },
-  { cat:'🧴 SMS – Affections peau & muqueuses', src:'Affections peau et muqueuses', q:'Qu\'est-ce que le muguet buccal et qui est particulièrement touché ?', opts:['Une infection virale des dents','Une infection par un champignon (candida albicans) touchant la muqueuse buccale, surtout le nourrisson','Une inflammation des gencives d\'origine bactérienne','Une maladie héréditaire des muqueuses'], ans:1, exp:'Le muguet est une infection de la muqueuse buccale provoquée par le champignon Candida albicans. Il touche surtout le nourrisson. Il se manifeste par une inflammation buccale avec points blancs et une succion douloureuse. Un traitement antifongique est nécessaire.' },
+  // === 🦠 SMS – Parasitoses ===
+  {cat:'🦠 SMS – Parasitoses',src:'Parasitoses',
+   q:'Qu\'est-ce que la pédiculose ?',
+   opts:['Une infestation par des oxyures intestinaux','Une infestation du cuir chevelu par des poux (Pediculus capitis)','Une dermatose bactérienne du cuir chevelu','Une allergie aux acariens'],ans:1,
+   exp:'La pédiculose est une parasitose causée par les poux de tête. Très contagieuse en collectivité, elle provoque des démangeaisons intenses.'},
+  {cat:'🦠 SMS – Parasitoses',src:'Parasitoses',
+   q:'La présence de poux indique-t-elle un manque d\'hygiène ?',
+   opts:['Oui, c\'est l\'indicateur principal d\'une hygiène insuffisante','Non, tout enfant peut attraper des poux quelle que soit sa propreté','Oui, surtout dans les familles défavorisées','Seulement en cas de réinfestation répétée'],ans:1,
+   exp:'La présence de poux N\'INDIQUE PAS un manque d\'hygiène. Les poux préfèrent même les cheveux propres. Tout enfant peut en attraper. Éviter tout jugement, réconforter la famille.'},
+  {cat:'🦠 SMS – Parasitoses',src:'Parasitoses',
+   q:'Qu\'est-ce que l\'oxyurose et quel est son principal symptôme ?',
+   opts:['Une infection du cuir chevelu','Une parasitose digestive avec prurit anal, surtout la nuit','Une maladie respiratoire par acariens','Une infection urinaire parasitaire'],ans:1,
+   exp:'L\'oxyurose est due aux oxyures (Enterobius vermicularis), petits vers blancs du gros intestin. Symptôme clé : prurit anal nocturne.'},
+  {cat:'🦠 SMS – Parasitoses',src:'Parasitoses',
+   q:'Pourquoi les oxyures récidivent-ils souvent après traitement ?',
+   opts:['Le traitement est peu efficace','Les œufs sous les ongles réinfestent quand les mains touchent la bouche','Ils se transmettent dans l\'air','Ils proviennent des animaux domestiques'],ans:1,
+   exp:'Les œufs d\'oxyures se fixent sous les ongles. Si les mains touchent la bouche, l\'enfant se réinfeste. D\'où l\'importance cruciale du lavage des mains après chaque passage aux toilettes.'},
 
-  // ====== SMS – Parasitoses ======
-  { cat:'🦠 SMS – Parasitoses', src:'Parasitoses', q:'Qu\'est-ce que la pédiculose ?', opts:['Une infestation par des vers intestinaux','Une infestation du cuir chevelu par des poux (Pediculus capitis)','Une maladie de peau bactérienne','Une allergie alimentaire'], ans:1, exp:'La pédiculose est une parasitose cutanée causée par une infestation du cuir chevelu par des poux (Pediculus capitis). Elle provoque des démangeaisons et est très contagieuse dans les collectivités d\'enfants.' },
-  { cat:'🦠 SMS – Parasitoses', src:'Parasitoses', q:'Que signifie la présence de poux chez un enfant concernant son hygiène ?', opts:['Cela indique un manque d\'hygiène','Cela n\'indique PAS un manque d\'hygiène','Cela indique un problème de nutrition','Cela signifie un déficit immunitaire'], ans:1, exp:'Il est fondamental d\'éviter les jugements de valeurs : la présence de poux n\'indique pas un manque d\'hygiène. Tout enfant peut attraper des poux, quelle que soit sa propreté. Il faut réconforter et rassurer l\'enfant.' },
-  { cat:'🦠 SMS – Parasitoses', src:'Parasitoses', q:'Qu\'est-ce que l\'oxyurose et quels sont ses symptômes ?', opts:['Une infection du cuir chevelu causant des pellicules','Une parasitose digestive bénigne causée par des oxyures dans l\'anus, provoquant un prurit anal','Une maladie respiratoire causée par des acariens','Une infection urinaire parasitaire'], ans:1, exp:'L\'oxyurose est une parasitose digestive bénigne causée par les oxyures (Enterobius vermicularis), de petits vers blancs vivant dans le gros intestin. Le principal symptôme est un prurit anal (démangeaisons autour de l\'anus), surtout la nuit.' },
-  { cat:'🦠 SMS – Parasitoses', src:'Parasitoses', q:'Pourquoi les oxyures peuvent-ils récidiver même après traitement ?', opts:['Parce que le traitement est inefficace','Parce que les œufs peuvent se fixer sous les ongles et réinfester l\'organisme quand les mains touchent la bouche','Parce qu\'ils vivent dans l\'air','Parce qu\'ils sont transmis par les animaux'], ans:1, exp:'Les œufs des oxyures peuvent se fixer facilement sous les ongles des enfants. Si les mains entrent en contact avec la bouche, l\'enfant peut se réinfecter. D\'où l\'importance cruciale du lavage des mains après les selles et pour éviter de se gratter.' },
+  // === 📋 EP1 – Posture professionnelle ===
+  {cat:'📋 EP1 – Posture professionnelle',src:'Responsabilité civile et pénale',
+   q:'Qu\'est-ce que la responsabilité civile d\'un professionnel de la petite enfance ?',
+   opts:['L\'obligation légale de signaler les maltraitances','L\'obligation de réparer les dommages causés dans l\'exercice de ses fonctions','Le respect absolu du secret professionnel','L\'obligation de se former en continu'],ans:1,
+   exp:'La responsabilité civile engage le professionnel (ou son employeur) à réparer les préjudices causés. Distincte de la responsabilité pénale (sanctions pénales : prison, amende).'},
+  {cat:'📋 EP1 – Posture professionnelle',src:'Secret professionnel',
+   q:'Que signifie concrètement le secret professionnel pour un professionnel AEPE ?',
+   opts:['Ne jamais parler aux parents','Garder confidentielles les informations sur l\'enfant et sa famille, sauf dérogations légales','Ne pas communiquer avec les collègues','Refuser de répondre aux médecins'],ans:1,
+   exp:'Secret professionnel : confidentialité des informations obtenues dans l\'exercice des fonctions. Dérogations légales notamment pour signaler les situations de maltraitance (art. 226-14 Code pénal).'},
+  {cat:'📋 EP1 – Posture professionnelle',src:'Droits de l\'enfant',
+   q:'En quelle année la Convention Internationale des Droits de l\'Enfant a-t-elle été adoptée par l\'ONU ?',
+   opts:['1959','1979','1989','1999'],ans:2,
+   exp:'La CIDE a été adoptée le 20 novembre 1989 et ratifiée par la France en 1990. 4 principes fondamentaux : non-discrimination, intérêt supérieur, droit à la vie et au développement, participation.'},
+  {cat:'📋 EP1 – Posture professionnelle',src:'Principe de laïcité',
+   q:'Que signifie la laïcité dans un EAJE ?',
+   opts:['Imposer la culture française à tous','Interdire toute fête et célébration','Garantir la neutralité religieuse et l\'égalité de traitement de tous les enfants','Refuser les enfants d\'autres origines'],ans:2,
+   exp:'La laïcité impose la neutralité religieuse. En EAJE : accueil de tous sans discrimination, pas de préférences religieuses affichées, respect de toutes les familles.'},
+  {cat:'📋 EP1 – Bientraitance',src:'La bientraitance',
+   q:'Qu\'est-ce que la bientraitance ?',
+   opts:['Interdire tout conflit entre enfants','Une démarche active visant le bien-être de l\'enfant en respectant ses droits et sa dignité','Ne jamais poser de limites','Satisfaire immédiatement toutes les demandes de l\'enfant'],ans:1,
+   exp:'La bientraitance est une démarche positive visant le bien-être et le développement de l\'enfant, en respectant ses droits, ses besoins et sa dignité. Elle inclut la prévention de la maltraitance.'},
+  {cat:'📋 EP1 – Bientraitance',src:'La bientraitance',
+   q:'Qu\'est-ce qu\'un PAI (Projet d\'Accueil Individualisé) ?',
+   opts:['Le planning hebdomadaire de l\'équipe','Un document pour un enfant ayant des besoins spécifiques (allergie, maladie chronique)','Le projet pédagogique de la structure','Le dossier d\'inscription et de facturation'],ans:1,
+   exp:'Le PAI est un document élaboré avec la famille, le médecin et la structure pour les enfants atteints de maladies chroniques, d\'allergies ou de handicaps. Il précise les aménagements et mesures d\'urgence.'},
+  {cat:'📋 EP1 – Soins quotidiens',src:'Mort inattendue du nourrisson',
+   q:'Quelle est la position recommandée pour prévenir la mort inattendue du nourrisson ?',
+   opts:['Sur le ventre pour favoriser le transit','Sur le côté pour éviter les régurgitations','Sur le dos dans un lit rigide sans objets mous','En position semi-assise à 45°'],ans:2,
+   exp:'Coucher sur le dos dans un lit rigide adapté, à bonne température, sans peluches ni coussins. Cette pratique a fait chuter considérablement les décès par mort inattendue du nourrisson.'},
+  {cat:'📋 EP1 – Soins quotidiens',src:'Le change',
+   q:'Dans quel sens nettoyer les fesses d\'une petite fille lors du change ?',
+   opts:['De l\'arrière vers l\'avant (anus → vulve)','De l\'avant vers l\'arrière (vulve → anus)','En cercles du centre vers l\'extérieur','Dans n\'importe quel sens avec une lingette'],ans:1,
+   exp:'Toujours de l\'avant vers l\'arrière (vulve → anus) pour éviter de contaminer l\'urètre avec des bactéries fécales et prévenir les infections urinaires.'},
 
-  // ====== NOUVEAU PROGRAMME – EP1 ======
-  { cat:'📋 EP1 – Posture professionnelle', src:'Responsabilité civile et pénale', q:'Qu\'est-ce que la responsabilité civile d\'un professionnel de la petite enfance ?', opts:['L\'obligation de signaler les maltraitances','L\'obligation de réparer les dommages causés à autrui dans l\'exercice de ses fonctions','Le respect du secret professionnel','L\'obligation de se former en continue'], ans:1, exp:'La responsabilité civile engage le professionnel (ou son employeur) à réparer le préjudice causé à autrui (enfant, famille) dans l\'exercice de ses fonctions. Elle est distincte de la responsabilité pénale qui peut mener à des sanctions pénales (prison, amende).' },
-  { cat:'📋 EP1 – Posture professionnelle', src:'Secret professionnel', q:'Le secret professionnel pour les professionnels de la petite enfance, c\'est quoi concrètement ?', opts:['Ne jamais parler aux parents','Garder confidentielles les informations relatives à l\'enfant et sa famille sauf dérogations légales','Ne pas communiquer avec les collègues','Refuser de répondre aux questions des médecins'], ans:1, exp:'Le secret professionnel oblige à garder confidentielles les informations obtenues dans l\'exercice de ses fonctions (santé, situation familiale de l\'enfant). Des dérogations existent notamment pour les situations de maltraitance (art. 226-14 du Code pénal).' },
-  { cat:'📋 EP1 – Posture professionnelle', src:'Droits de l\'enfant', q:'En quelle année la Convention Internationale des Droits de l\'Enfant (CIDE) a-t-elle été adoptée par l\'ONU ?', opts:['1959','1979','1989','1999'], ans:2, exp:'La Convention Internationale des Droits de l\'Enfant a été adoptée par l\'ONU le 20 novembre 1989 et ratifiée par la France en 1990. C\'est le traité de droits humains le plus ratifié au monde. Ses 4 principes : non-discrimination, intérêt supérieur, droit à la vie et au développement, participation.' },
-  { cat:'📋 EP1 – Posture professionnelle', src:'Principe de laïcité', q:'Que signifie le principe de laïcité dans un EAJE ?', opts:['Imposer la culture française à tous','Interdire les fêtes','Garantir la neutralité religieuse et l\'égalité de traitement de tous les enfants sans distinction de religion','Refuser les enfants de certaines origines'], ans:2, exp:'Le principe de laïcité impose la neutralité religieuse dans les structures publiques. En EAJE, cela signifie accueillir tous les enfants sans discrimination, ne pas afficher de préférences religieuses, et traiter toutes les familles avec le même respect.' },
-  { cat:'📋 EP1 – Bientraitance', src:'La bientraitance / maltraitance', q:'Qu\'est-ce que la bientraitance ?', opts:['Interdire tout conflit','Une démarche active visant le bien-être de l\'enfant, respectant ses droits et sa dignité','Ne jamais poser de limites à l\'enfant','Faire tout ce que l\'enfant demande'], ans:1, exp:'La bientraitance est une démarche active et positive visant le bien-être et le développement de l\'enfant, en respectant ses droits, ses besoins et sa dignité. Elle inclut la prévention de la maltraitance et la promotion des bonnes pratiques professionnelles.' },
-  { cat:'📋 EP1 – Bientraitance', src:'La bientraitance / maltraitance', q:'Qu\'est-ce qu\'un PAI (Projet d\'Accueil Individualisé) ?', opts:['Le planning hebdomadaire de l\'équipe','Un document établi pour un enfant ayant des besoins de santé spécifiques (allergie, maladie chronique) précisant les aménagements nécessaires','Le projet pédagogique de la structure','Le dossier d\'inscription de l\'enfant'], ans:1, exp:'Le PAI (Projet d\'Accueil Individualisé) est un document établi pour les enfants atteints de maladies chroniques, d\'allergies ou de handicaps. Il précise les aménagements, soins et mesures d\'urgence nécessaires. Il est élaboré avec la famille, le médecin et la structure.' },
-  { cat:'📋 EP1 – Soins quotidiens', src:'La mort inattendue du nourrisson', q:'Quelle est la position recommandée pour prévenir la mort inattendue du nourrisson (MIN) ?', opts:['Sur le ventre','Sur le côté','Sur le dos dans un lit rigide, sans objets mous','En position semi-assise'], ans:2, exp:'Pour prévenir la mort inattendue du nourrisson, il faut le coucher sur le dos dans un lit rigide adapté (ni trop chaud, ni trop d\'objets mous comme des peluches ou coussins). Cette pratique a fait diminuer considérablement les décès par MIN.' },
-  { cat:'📋 EP1 – Soins quotidiens', src:'Le change', q:'Dans quel sens doit-on nettoyer les fesses d\'une petite fille lors du change ?', opts:['De l\'arrière vers l\'avant (anus vers vulve)','De l\'avant vers l\'arrière (vulve vers anus)','En mouvements circulaires','Dans n\'importe quel sens'], ans:1, exp:'Pour les petites filles, on nettoie toujours de l\'avant vers l\'arrière (vulve vers anus) afin d\'éviter de ramener des bactéries fécales vers l\'urètre, ce qui pourrait provoquer des infections urinaires.' },
-  { cat:'📋 EP1 – Soins quotidiens', src:'Préparation biberon', q:'Comment vérifier la température d\'un biberon avant de le donner au bébé ?', opts:['En le goûtant avec une cuillère','En versant quelques gouttes sur la face interne du poignet','En regardant si de la vapeur se dégage','Avec un thermomètre de cuisine'], ans:1, exp:'On vérifie la température du biberon en versant quelques gouttes de lait sur la face interne du poignet, zone très sensible à la chaleur. Le lait doit être tiède (environ 37°C), jamais brûlant.' },
+  // === 📋 EP2 – Accueil collectif ===
+  {cat:'📋 EP2 – Accueil collectif',src:'Acquisition du langage',
+   q:'Vers quel âge apparaissent les premiers mots chez un enfant à développement typique ?',
+   opts:['3-4 mois','6-8 mois','10-14 mois','18-24 mois'],ans:2,
+   exp:'Premiers mots : généralement 10-14 mois. Babillage : 6-9 mois. Association 2 mots : 18-24 mois. Petites phrases : vers 3 ans.'},
+  {cat:'📋 EP2 – Accueil collectif',src:'Entretien du linge',
+   q:'Que signifie un triangle sur l\'étiquette d\'un vêtement ?',
+   opts:['Ne pas repasser','Instructions de séchage en tambour','Instructions de blanchiment','Lavage à la main seulement'],ans:2,
+   exp:'Le triangle indique le blanchiment. Triangle vide = autorisé. Triangle avec 2 lignes = sans chlore seulement. Triangle barré = aucun blanchiment.'},
+  {cat:'📋 EP2 – Accueil collectif',src:'Techniques de nettoyage',
+   q:'Quelle est la différence entre nettoyage et désinfection ?',
+   opts:['Termes synonymes','Le nettoyage enlève les saletés visibles, la désinfection tue les micro-organismes pathogènes','Le nettoyage tue les microbes, la désinfection nettoie','La désinfection est réservée aux hôpitaux'],ans:1,
+   exp:'Le nettoyage enlève les souillures visibles. La désinfection détruit les micro-organismes pathogènes. Ces deux étapes sont complémentaires et toujours réalisées dans cet ordre.'},
+  {cat:'📋 EP2 – Accueil collectif',src:'Aménagement de l\'espace',
+   q:'Pourquoi le coin repos doit-il être séparé du coin jeux en crèche ?',
+   opts:['Pour des raisons esthétiques','Pour respecter le rythme de l\'enfant et lui permettre un vrai repos sans stimulations','Pour éviter que les jouets se salissent','Pour faciliter la surveillance'],ans:1,
+   exp:'L\'enfant doit pouvoir dormir dans un espace calme, séparé du bruit. Respecter le rythme individuel de sommeil est un principe fondamental de bientraitance.'},
 
-  // ====== NOUVEAU PROGRAMME – EP2 ======
-  { cat:'📋 EP2 – Accueil collectif', src:'Acquisition du langage', q:'Vers quel âge apparaissent les premiers mots chez un enfant (développement typique) ?', opts:['3-4 mois','6-8 mois','10-14 mois','18-24 mois'], ans:2, exp:'Les premiers mots apparaissent généralement entre 10 et 14 mois. Avant cela, l\'enfant passe par le babillage (6-9 mois), les jargons. Vers 18-24 mois, l\'enfant commence à associer 2 mots. À 3 ans, il peut faire de petites phrases.' },
-  { cat:'📋 EP2 – Accueil collectif', src:'Entretien du linge', q:'Que signifie le symbole d\'un triangle sur une étiquette de vêtement ?', opts:['Ne pas repasser','Instructions de séchage','Instructions de blanchiment (chlore)','Lavage à la main'], ans:2, exp:'Le triangle sur l\'étiquette indique les instructions de blanchiment. Un triangle vide = blanchiment autorisé ; triangle avec deux lignes obliques = blanchiment sans chlore seulement ; triangle barré = pas de blanchiment.' },
-  { cat:'📋 EP2 – Accueil collectif', src:'Techniques de nettoyage des sols', q:'Quelle est la différence entre nettoyage et désinfection ?', opts:['Ce sont deux termes synonymes','Le nettoyage enlève les saletés visibles, la désinfection tue les micro-organismes pathogènes','Le nettoyage tue les microbes, la désinfection enlève les saletés','La désinfection est réservée aux blocs opératoires'], ans:1, exp:'Le nettoyage enlève les salissures visibles (poussières, graisses) et réduit la charge microbienne. La désinfection, elle, détruit les micro-organismes pathogènes. Les deux opérations sont complémentaires et doivent souvent être réalisées dans cet ordre.' },
+  // === 📋 EP3 – Accueil individuel ===
+  {cat:'📋 EP3 – Accueil individuel',src:'L\'équilibre alimentaire',
+   q:'Combien de prises alimentaires un enfant de 1 à 3 ans a-t-il besoin par jour ?',
+   opts:['2 repas principaux','3 repas sans collation','4 à 5 prises (3 repas + 1-2 collations)','6 repas répartis toutes les 3 heures'],ans:2,
+   exp:'4 à 5 prises/jour : petit-déjeuner, déjeuner, goûter, dîner (+éventuellement un 2e petit-déjeuner). Le goûter couvre les besoins énergétiques de croissance.'},
+  {cat:'📋 EP3 – Accueil individuel',src:'Allergies et intolérances',
+   q:'Quelle est la différence entre allergie et intolérance alimentaire ?',
+   opts:['Ce sont des synonymes','L\'allergie implique une réaction immunitaire (pouvant être grave), l\'intolérance ne mobilise pas le système immunitaire','L\'allergie ne concerne que les nourrissons','L\'intolérance est toujours plus grave'],ans:1,
+   exp:'Allergie alimentaire : réponse immunitaire (IgE), risque de choc anaphylactique. Intolérance (ex : au lactose) : pas de réaction immunitaire, troubles digestifs surtout.'},
+  {cat:'📋 EP3 – Accueil individuel',src:'Produits toxicologiques',
+   q:'Que faire si un enfant ingère un produit toxique (eau de Javel, produit ménager) ?',
+   opts:['Faire vomir immédiatement','Donner beaucoup d\'eau pour diluer','Appeler le 15 ou le Centre Antipoison (0800 59 59 59), ne jamais faire vomir','Attendre les symptômes avant d\'agir'],ans:2,
+   exp:'Ne JAMAIS faire vomir (brûlures à la remontée). Appeler immédiatement le 15 ou le Centre Antipoison. Garder le produit pour donner les informations exactes.'},
+  {cat:'📋 EP3 – Accueil individuel',src:'L\'entretien du réfrigérateur',
+   q:'À quelle température doit fonctionner un réfrigérateur pour conserver les aliments en sécurité ?',
+   opts:['Entre 0°C et 4°C','Entre 5°C et 8°C','Entre 10°C et 12°C','En dessous de -5°C'],ans:0,
+   exp:'Entre 0°C et 4°C (idéalement 4°C) pour ralentir la prolifération bactérienne. Au-delà de 4°C, les bactéries se multiplient rapidement. Vérifier régulièrement avec un thermomètre.'},
 
-  // ====== NOUVEAU PROGRAMME – EP3 ======
-  { cat:'📋 EP3 – Accueil individuel', src:'L\'équilibre alimentaire', q:'Combien de repas environ un enfant de 1 à 3 ans doit-il prendre par jour ?', opts:['2 repas','3 repas','4 à 5 prises alimentaires (3 repas + 1-2 collations)','6 repas'], ans:2, exp:'Un enfant de 1 à 3 ans a besoin de 4 à 5 prises alimentaires par jour : 3 repas principaux (petit déjeuner, déjeuner, dîner) et 1 à 2 collations. Le goûter est particulièrement important pour couvrir les besoins énergétiques liés à la croissance.' },
-  { cat:'📋 EP3 – Accueil individuel', src:'Les allergies et intolérances alimentaires', q:'Quelle est la différence entre allergie alimentaire et intolérance alimentaire ?', opts:['Ce sont deux termes synonymes','L\'allergie implique une réaction immunitaire (parfois grave), l\'intolérance n\'implique pas le système immunitaire et ses effets sont souvent digestifs','L\'allergie ne concerne que les enfants','L\'intolérance est toujours plus grave que l\'allergie'], ans:1, exp:'L\'allergie alimentaire implique une réaction du système immunitaire (production d\'anticorps IgE) pouvant aller jusqu\'au choc anaphylactique. L\'intolérance (ex: intolérance au lactose) n\'implique pas le système immunitaire et provoque surtout des troubles digestifs.' },
-  { cat:'📋 EP3 – Accueil individuel', src:'Produits toxicologiques', q:'Que faire si un enfant ingère un produit toxique (eau de Javel, produit ménager) ?', opts:['Lui faire vomir immédiatement','Lui donner beaucoup d\'eau à boire','Appeler le 15 (SAMU) ou le centre antipoison (0800 59 59 59) sans faire vomir','Attendre que ça passe'], ans:2, exp:'En cas d\'ingestion d\'un produit toxique, il ne faut JAMAIS faire vomir (risque de brûlures à la remontée). Il faut appeler immédiatement le 15 (SAMU) ou le Centre Antipoison (numéro national : 0800 59 59 59) et avoir le produit sous la main pour donner les informations nécessaires.' },
-  { cat:'📋 EP3 – Accueil individuel', src:'L\'entretien du réfrigérateur', q:'À quelle température doit fonctionner un réfrigérateur pour conserver les aliments en sécurité ?', opts:['Entre 0°C et 4°C','Entre 5°C et 8°C','Entre 10°C et 12°C','En dessous de -5°C'], ans:0, exp:'Un réfrigérateur doit fonctionner entre 0°C et 4°C (idéalement autour de 4°C) pour ralentir la prolifération bactérienne et conserver les aliments en toute sécurité. Il faut vérifier régulièrement la température avec un thermomètre.' },
+  // === 🧬 Biologie – Circulation sanguine ===
+  {cat:'🧬 Biologie – Circulation sanguine',src:'Circulation sanguine',
+   q:'Quel est le rôle des globules rouges ?',
+   opts:['Défendre l\'organisme contre les infections','Transporter l\'oxygène des poumons vers les cellules grâce à l\'hémoglobine','Produire les anticorps','Assurer la coagulation'],ans:1,
+   exp:'Les hématies (globules rouges) contiennent l\'hémoglobine qui fixe l\'O2 dans les poumons et le transporte vers les cellules. Ils transportent aussi le CO2 en sens inverse.'},
+  {cat:'🧬 Biologie – Circulation sanguine',src:'Circulation sanguine',
+   q:'Quel est le rôle des globules blancs (leucocytes) ?',
+   opts:['Transporter l\'oxygène','Assurer la coagulation sanguine','Défendre l\'organisme contre les agents infectieux','Réguler la glycémie'],ans:2,
+   exp:'Les leucocytes assurent la défense immunitaire : identification et élimination des agents infectieux. Plusieurs types : neutrophiles, lymphocytes, monocytes, éosinophiles.'},
+  {cat:'🧬 Biologie – Circulation sanguine',src:'Circulation sanguine',
+   q:'Quel organe est le moteur de la circulation sanguine ?',
+   opts:['Le foie','Les poumons','Le cœur','Les reins'],ans:2,
+   exp:'Le cœur est le muscle central de la circulation. Il se contracte ~70 fois/min au repos pour propulser le sang dans tout l\'organisme.'},
 
-  // ====== BIOLOGIE – Circulation & autres ======
-  { cat:'🧬 Biologie – Circulation sanguine', src:'Circulation sanguine', q:'Quel est le rôle des globules rouges dans le sang ?', opts:['Défendre l\'organisme contre les infections','Transporter l\'oxygène (O2) des poumons vers les cellules','Produire les anticorps','Réguler la coagulation'], ans:1, exp:'Les globules rouges (hématies) contiennent de l\'hémoglobine, une protéine qui fixe l\'oxygène dans les poumons et le transporte vers toutes les cellules du corps. Ils transportent aussi le CO2 en sens inverse (des cellules vers les poumons).' },
-  { cat:'🧬 Biologie – Circulation sanguine', src:'Circulation sanguine', q:'Quel est le rôle des globules blancs (leucocytes) ?', opts:['Transporter l\'oxygène','Assurer la coagulation','Défendre l\'organisme contre les agents infectieux (immunité)','Réguler la glycémie'], ans:2, exp:'Les globules blancs (leucocytes) sont les cellules du système immunitaire. Ils assurent la défense de l\'organisme contre les agents infectieux (bactéries, virus, parasites). Il en existe plusieurs types : neutrophiles, lymphocytes, monocytes, etc.' },
-  { cat:'🧬 Biologie – Système nerveux', src:'Le système nerveux', q:'Quelle est la différence entre le système nerveux central et le système nerveux périphérique ?', opts:['Ils sont identiques','Le SNC comprend le cerveau et la moelle épinière ; le SNP comprend tous les nerfs en dehors de ceux-ci','Le SNC est dans les membres, le SNP est dans le tronc','Le SNP contrôle la pensée, le SNC contrôle les mouvements'], ans:1, exp:'Le système nerveux central (SNC) comprend le cerveau et la moelle épinière. Le système nerveux périphérique (SNP) comprend tous les nerfs qui relient le SNC au reste du corps (organes, muscles, peau). Ensemble, ils coordonnent toutes les activités de l\'organisme.' },
+  // === 🧬 Biologie – Système nerveux ===
+  {cat:'🧬 Biologie – Système nerveux',src:'Le système nerveux',
+   q:'Quelle est la différence entre SNC et SNP ?',
+   opts:['Ils sont identiques','SNC = cerveau + moelle épinière ; SNP = tous les nerfs en dehors','SNC = membres ; SNP = tronc','SNP = pensée ; SNC = mouvements'],ans:1,
+   exp:'SNC (système nerveux central) : cerveau et moelle épinière. SNP (périphérique) : tous les nerfs reliant le SNC au reste du corps (organes, muscles, peau).'},
+  {cat:'🧬 Biologie – Système nerveux',src:'Le système nerveux',
+   q:'Comment s\'appelle la cellule de base du système nerveux ?',
+   opts:['L\'érythrocyte','Le neurone','Le myocyte','Le leucocyte'],ans:1,
+   exp:'Le neurone transmet l\'influx nerveux via ses dendrites (réception) et son axone (transmission). Les neurones forment des réseaux complexes coordonnant toutes les fonctions nerveuses.'},
 
-  // ====== SÉCURITÉ & GESTES D'URGENCE ======
-  { cat:'🚨 Sécurité & Urgences', src:'Maladies infectieuses / Sécurité', q:'Quels sont les signes d\'alerte d\'une méningite bactérienne chez un nourrisson ?', opts:['Légère fièvre et toux','Fièvre élevée, fontanelle bombante, raideur de nuque, vomissements, purpura (taches violacées)','Diarrhée et éruption rosée','Toux aboyante nocturne uniquement'], ans:1, exp:'La méningite bactérienne est une urgence vitale. Chez le nourrisson : fièvre élevée, fontanelle bombante (tendue), pleurs aigus, hypotonie, refus de tétée, et surtout le purpura (taches violacées ne disparaissant pas à la pression du verre). Appel du 15 immédiat !' },
-  { cat:'🚨 Sécurité & Urgences', src:'Sécurité', q:'Que faire en cas d\'obstruction totale des voies aériennes chez un enfant de plus d\'un an ?', opts:['Lui donner à boire','5 claques dans le dos puis 5 compressions abdominales (Heimlich)','L\'allonger sur le ventre','Attendre que ça se dégage seul'], ans:1, exp:'En cas d\'obstruction totale : 5 claques vigoureuses dans le dos (entre les omoplates), puis 5 compressions abdominales (manœuvre de Heimlich). Pour un nourrisson de moins d\'un an : 5 tapes dorsales et 5 compressions thoraciques (pas abdominales).' },
-  { cat:'🚨 Sécurité & Urgences', src:'Sécurité', q:'Quels sont les numéros d\'urgence en France ?', opts:['15 (SAMU), 17 (Police), 18 (Pompiers), 112 (Urgence européen)','10, 20, 30 et 40','999 et 911','Seulement le 15'], ans:0, exp:'Les numéros d\'urgence en France : 15 (SAMU – urgences médicales), 17 (Police), 18 (Pompiers), 112 (numéro d\'urgence européen, fonctionne partout en Europe), et 114 (urgences pour sourds/malentendants).' },
+  // === 🚨 Sécurité & Urgences ===
+  {cat:'🚨 Sécurité & Urgences',src:'Urgences médicales',
+   q:'Quels sont les signes d\'alerte d\'une méningite bactérienne chez le nourrisson ?',
+   opts:['Légère fièvre et toux','Fièvre élevée, fontanelle bombante, purpura (taches violacées ne disparaissant pas à la pression)','Diarrhée et éruption rosée','Toux aboyante nocturne'],ans:1,
+   exp:'Méningite bactérienne = urgence vitale. Nourrisson : fièvre, fontanelle bombante, pleurs aigus, hypotonie, refus de tétée, purpura (taches violacées = signe majeur). Appel 15 immédiat !'},
+  {cat:'🚨 Sécurité & Urgences',src:'Sécurité',
+   q:'Que faire en cas d\'obstruction totale des voies aériennes chez un enfant > 1 an ?',
+   opts:['Lui donner de l\'eau','5 claques dans le dos puis 5 compressions abdominales (Heimlich)','L\'allonger sur le ventre','Souffler dans la bouche'],ans:1,
+   exp:'5 claques dans le dos (entre omoplates), puis 5 compressions abdominales (Heimlich). Pour nourrisson < 1 an : 5 tapes + 5 compressions THORACIQUES (jamais abdominales).'},
+  {cat:'🚨 Sécurité & Urgences',src:'Sécurité',
+   q:'Quels sont les numéros d\'urgence en France ?',
+   opts:['15 (SAMU), 17 (Police), 18 (Pompiers), 112 (Urgence européenne)','10, 20, 30 et 40','999 et 911','Uniquement le 15 pour tout'],ans:0,
+   exp:'15 = SAMU (urgences médicales), 17 = Police, 18 = Pompiers, 112 = numéro européen, 114 = sourds/malentendants, 0800 59 59 59 = Centre Antipoison.'},
+  {cat:'🚨 Sécurité & Urgences',src:'Sécurité',
+   q:'Qu\'est-ce que le purpura fulminans ?',
+   opts:['Une fièvre élevée due à une grippe sévère','Des taches violacées ne disparaissant pas à la pression — signe de méningite grave','Une éruption allergique bénigne','Une infection virale saisonnière'],ans:1,
+   exp:'Le purpura fulminans = taches violacées résistant à la pression d\'un verre. Signe d\'une méningite à méningocoque grave. Urgence absolue : appel 15 immédiat sans attendre.'},
 
-  // ====== MODES D'ACCUEIL ======
-  { cat:'🏫 Modes d\'accueil', src:'L\'accueil de l\'enfant', q:'Qu\'est-ce qu\'une halte-garderie ?', opts:['Un établissement d\'accueil régulier à temps plein','Une structure d\'accueil occasionnel et flexible pour les enfants de moins de 6 ans','Un accueil chez une assistante maternelle','Un accueil exclusivement pour les enfants handicapés'], ans:1, exp:'La halte-garderie est une structure d\'accueil collectif occasionnel et flexible. Elle accueille les enfants de moins de 6 ans de manière ponctuelle (quelques heures par semaine), ce qui la différencie de la crèche collective qui offre un accueil régulier.' },
-  { cat:'🏫 Modes d\'accueil', src:'L\'accueil de l\'enfant', q:'Quelle est la différence entre un accueil collectif et un accueil individuel ?', opts:['Il n\'y a pas de différence','L\'accueil collectif regroupe plusieurs enfants dans une structure (crèche) ; l\'accueil individuel est chez une assistante maternelle ou à domicile','L\'accueil individuel est réservé aux bébés','L\'accueil collectif est uniquement public'], ans:1, exp:'L\'accueil collectif (crèche, halte-garderie, jardin d\'enfants) regroupe plusieurs enfants dans une structure collective. L\'accueil individuel se fait chez une assistante maternelle agréée à son domicile ou par une garde à domicile. Ces deux modes répondent à des besoins différents.' },
+  // === 🏫 Modes d'accueil ===
+  {cat:'🏫 Modes d\'accueil',src:'L\'accueil de l\'enfant',
+   q:'Qu\'est-ce qu\'une halte-garderie ?',
+   opts:['Un accueil régulier à temps plein','Une structure d\'accueil collectif occasionnel et flexible pour les < 6 ans','Un accueil exclusivement chez une assistante maternelle','Un accueil uniquement pour enfants handicapés'],ans:1,
+   exp:'La halte-garderie offre un accueil collectif ponctuel (quelques heures/semaine). Distincte de la crèche (accueil régulier).'},
+  {cat:'🏫 Modes d\'accueil',src:'L\'accueil de l\'enfant',
+   q:'Quelle est la différence entre accueil collectif et individuel ?',
+   opts:['Aucune différence réglementaire','Collectif = plusieurs enfants dans une structure ; individuel = chez une assistante maternelle ou à domicile','Individuel réservé aux nourrissons de < 3 mois','Collectif uniquement public'],ans:1,
+   exp:'Accueil collectif : crèche, halte-garderie, jardin d\'enfants. Accueil individuel : chez une assistante maternelle agréée ou par une garde à domicile.'},
+  {cat:'🏫 Modes d\'accueil',src:'L\'accueil de l\'enfant',
+   q:'Qu\'est-ce qu\'un Relais Petite Enfance (RPE) ?',
+   opts:['Un service hospitalier pédiatrique','Un service d\'information et de coordination pour l\'accueil individuel (assistantes maternelles, gardes à domicile)','Une crèche collective privée','Un service de remplacement pour assistantes maternelles'],ans:1,
+   exp:'Le RPE (ex-RAM) informe et anime le réseau de l\'accueil individuel : aide aux parents, assistantes maternelles et gardes à domicile dans leurs démarches.'},
 
-  // ====== HYGIÈNE PROFESSIONNELLE ======
-  { cat:'🧼 Hygiène professionnelle', src:'Les biocontaminations', q:'Qu\'est-ce qu\'une biocontamination ?', opts:['Une pollution chimique des aliments','Une contamination par des agents biologiques (bactéries, virus, champignons, parasites)','Une contamination par des métaux lourds','Une allergie cutanée'], ans:1, exp:'Une biocontamination est une contamination par des agents biologiques vivants : bactéries, virus, champignons, parasites. Dans les EAJE, les voies de contamination principales sont la voie aérienne, la voie fécale-orale et le contact direct.' },
-  { cat:'🧼 Hygiène professionnelle', src:'Les produits d\'entretien', q:'Quelle est la distinction entre un détergent et un désinfectant ?', opts:['Ce sont des termes synonymes','Le détergent nettoie (enlève les saletés), le désinfectant tue les micro-organismes pathogènes','Le désinfectant nettoie, le détergent tue les microbes','Les détergents sont plus efficaces'], ans:1, exp:'Un détergent (ou dégraissant) est un produit de nettoyage qui enlève les salissures en les émulsifiant. Un désinfectant est un produit biocide qui détruit les micro-organismes pathogènes. On utilise souvent d\'abord le détergent, puis le désinfectant (procédé en 2 temps).' },
-  { cat:'🧼 Hygiène professionnelle', src:'Les produits de soin', q:'Pourquoi ne faut-il pas introduire de coton-tige dans le conduit auditif d\'un bébé ?', opts:['Parce que le bébé n\'aime pas','Parce que cela peut tasser le cérumen et abîmer le tympan','Parce que les cotons-tiges ne sont pas adaptés aux nourrissons','Il n\'y a pas de contre-indication'], ans:1, exp:'L\'introduction d\'un coton-tige dans le canal auditif peut tasser le cérumen (bouchon), abîmer le tympan et provoquer des douleurs ou une otite. Le nettoyage des oreilles se limite au pavillon externe avec le coin d\'un gant de toilette propre.' },
+  // === 🧼 Hygiène professionnelle ===
+  {cat:'🧼 Hygiène professionnelle',src:'Les biocontaminations',
+   q:'Qu\'est-ce qu\'une biocontamination ?',
+   opts:['Une pollution chimique par pesticides','Une contamination par des agents biologiques vivants (bactéries, virus, champignons, parasites)','Une contamination par des métaux lourds','Une réaction allergique cutanée'],ans:1,
+   exp:'Biocontamination : contamination par agents biologiques vivants. En EAJE : voie aérienne (toux), fécale-orale (mains sales) et contact direct.'},
+  {cat:'🧼 Hygiène professionnelle',src:'Les produits d\'entretien',
+   q:'Quelle est la différence entre détergent et désinfectant ?',
+   opts:['Synonymes','Détergent = nettoie les saletés ; désinfectant = tue les micro-organismes pathogènes','Désinfectant = nettoie ; détergent = tue les microbes','Les détergents sont toujours plus efficaces'],ans:1,
+   exp:'Détergent : enlève les souillures (dégraissage). Désinfectant : détruit les pathogènes. On applique toujours d\'abord le détergent, puis le désinfectant.'},
+  {cat:'🧼 Hygiène professionnelle',src:'Soins d\'hygiène',
+   q:'Pourquoi ne pas introduire de coton-tige dans le conduit auditif d\'un bébé ?',
+   opts:['Le bébé n\'aime pas','Cela peut tasser le cérumen et abîmer le tympan','Les cotons-tiges ne sont pas homologués','Il n\'y a aucune contre-indication'],ans:1,
+   exp:'Introduction dans le canal : tasse le cérumen (bouchon), risque d\'abîmer le tympan, douleur, otite. On nettoie uniquement le pavillon externe avec le coin d\'un gant humide.'},
+  {cat:'🧼 Hygiène professionnelle',src:'Hygiène des mains',
+   q:'Quand doit-on se laver les mains en EAJE ?',
+   opts:['Seulement avant les repas','Uniquement après le change','Avant et après chaque soin, avant de préparer les repas, après le change, après contact avec des sécrétions','Uniquement quand les mains sont visiblement sales'],ans:2,
+   exp:'Le lavage des mains est la mesure d\'hygiène la plus efficace. Obligatoire : avant/après chaque soin, change, préparation des repas, contact avec des sécrétions ou surfaces souillées.'},
 ];
 
 // ============================================================
 const LETTERS = ['A','B','C','D'];
-let curMode = 'all', quiz = [], idx = 0, score = 0, answered = false, catStats = {};
+let curMode='all', quiz=[], idx=0, score=0, answered=false, catStats={};
+let bestScores={};
+try{bestScores=JSON.parse(localStorage.getItem('cap_scores')||'{}');}catch(e){bestScores={};}
 
-function buildHome() {
-  document.getElementById('totalQ').textContent = ALL.length;
-  const cats = [...new Set(ALL.map(q=>q.cat))];
-  document.getElementById('totalCat').textContent = cats.length;
-  document.getElementById('cnt-all').textContent = ALL.length + ' questions mélangées';
-  const best = localStorage.getItem('cap_best');
-  if(best) document.getElementById('bestScore').textContent = best + '%';
-  const grid = document.getElementById('catGrid');
-  grid.innerHTML = '';
-  cats.forEach(cat => {
-    const count = ALL.filter(q=>q.cat===cat).length;
-    const div = document.createElement('div');
-    div.className = 'cat-card';
-    div.innerHTML = `<div class="cat-icon">${cat.split(' ')[0]}</div><div class="cat-title">${cat.replace(/^[^\s]+\s/,'')}</div><div class="cat-count">${count} question${count>1?'s':''}</div>`;
-    div.onclick = () => startQuiz(cat);
-    grid.appendChild(div);
-  });
+function saveScores(){try{localStorage.setItem('cap_scores',JSON.stringify(bestScores));}catch(e){}}
+
+function shuffleOptions(q){
+  const c=q.opts.map((o,i)=>({text:o,isCorrect:i===q.ans}));
+  for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]];}
+  const newAns=c.findIndex(o=>o.isCorrect);
+  return{opts:c.map(o=>o.text),ans:newAns};
 }
 
-function shuffle(a) {
+function shuffle(a){
   const b=[...a];
   for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}
   return b;
 }
 
-function startQuiz(mode) {
-  curMode = mode;
-  quiz = mode==='all' ? shuffle(ALL) : shuffle(ALL.filter(q=>q.cat===mode));
-  idx=0; score=0; answered=false; catStats={};
+function buildHome(){
+  const cats=[...new Set(QUESTIONS.map(q=>q.cat))];
+  document.getElementById('totalQ').textContent=QUESTIONS.length;
+  document.getElementById('totalCat').textContent=cats.length;
+  const gb=Object.entries(bestScores).filter(([k])=>k==='exam'||k==='rapid').map(([,v])=>v);
+  document.getElementById('bestScore').textContent=gb.length?Math.max(...gb)+'%':'–';
+  const grid=document.getElementById('catGrid');
+  grid.innerHTML='';
+  cats.forEach(cat=>{
+    const count=QUESTIONS.filter(q=>q.cat===cat).length;
+    const emoji=cat.split(' ')[0];
+    const name=cat.replace(/^[^\s]+\s/,'');
+    const best=bestScores['c:'+cat]||0;
+    const div=document.createElement('div');
+    div.className='cat-card';
+    div.innerHTML=`<div class="cat-emoji">${emoji}</div><div class="cat-name">${name}</div><div class="cat-cnt">${count} question${count>1?'s':''}</div><div class="cat-prog"><div class="cat-prog-fill" style="width:${best}%"></div></div>`;
+    div.onclick=()=>startQuiz('c:'+cat);
+    grid.appendChild(div);
+  });
+}
+
+function startQuiz(mode){
+  curMode=mode;
+  let pool;
+  if(mode==='exam') pool=shuffle(QUESTIONS);
+  else if(mode==='rapid') pool=shuffle(QUESTIONS).slice(0,20);
+  else{const catKey=mode.replace('c:','');pool=shuffle(QUESTIONS.filter(q=>q.cat===catKey));}
+  quiz=pool.map(q=>{const s=shuffleOptions(q);return{...q,...s};});
+  idx=0;score=0;answered=false;catStats={};
   document.getElementById('home').style.display='none';
   document.getElementById('quiz').style.display='block';
   document.getElementById('results').style.display='none';
   showQ();
 }
 
-function goHome() {
+function goHome(){
   document.getElementById('home').style.display='block';
   document.getElementById('quiz').style.display='none';
   document.getElementById('results').style.display='none';
+  buildHome();
 }
 
-function showQ() {
-  answered = false;
-  const q = quiz[idx], total = quiz.length;
-  document.getElementById('qNum').textContent = `${idx+1}/${total}`;
-  document.getElementById('qNumInner').textContent = `QUESTION ${idx+1}`;
-  document.getElementById('catTag').textContent = q.cat.replace(/^[^\s]+\s/,'').split('–')[1]?.trim() || q.cat;
-  document.getElementById('qSource').textContent = '📖 ' + q.src;
-  document.getElementById('qText').textContent = q.q;
-  document.getElementById('progFill').style.width = Math.round(idx/total*100)+'%';
-  document.getElementById('scoreDisp').textContent = score;
-  const c = document.getElementById('optsContainer');
-  c.innerHTML = '';
-  q.opts.forEach((o,i)=>{
+function showQ(){
+  answered=false;
+  const q=quiz[idx],total=quiz.length;
+  document.getElementById('qNum').textContent=`${idx+1} / ${total}`;
+  document.getElementById('qNumInner').textContent=`Question ${idx+1}`;
+  const catShort=q.cat.replace(/^[^\s]+\s/,'').split('–')[1]?.trim()||q.cat.replace(/^[^\s]+\s/,'');
+  document.getElementById('catBadge').textContent=catShort;
+  document.getElementById('qSourceTag').textContent='📖 '+q.src;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('progFill').style.width=Math.round(idx/total*100)+'%';
+  document.getElementById('scoreDisp').textContent=score;
+  const c=document.getElementById('optsContainer');
+  c.innerHTML='';
+  q.opts.forEach((opt,i)=>{
     const d=document.createElement('div');
     d.className='opt';
-    d.innerHTML=`<span class="opt-l">${LETTERS[i]}</span>${o}`;
-    d.onclick=()=>selectAns(i,d);
+    d.innerHTML=`<span class="opt-letter">${LETTERS[i]}</span><span class="opt-text">${opt}</span>`;
+    d.onclick=()=>selectAnswer(i,d);
     c.appendChild(d);
   });
-  document.getElementById('fb').className='fb';
+  document.getElementById('feedbackEl').className='feedback';
   document.getElementById('nextBtn').className='next-btn';
+  const card=document.getElementById('qcard');
+  card.style.animation='none';
+  requestAnimationFrame(()=>{card.style.animation='';});
 }
 
-function selectAns(i, el) {
-  if(answered) return;
+function selectAnswer(i,el){
+  if(answered)return;
   answered=true;
   const q=quiz[idx];
   document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
-  if(!catStats[q.cat]) catStats[q.cat]={ok:0,tot:0};
+  if(!catStats[q.cat])catStats[q.cat]={ok:0,tot:0};
   catStats[q.cat].tot++;
-  const fb=document.getElementById('fb');
-  if(i===q.ans) {
-    score++; el.classList.add('ok');
-    fb.className='fb ok-fb show';
-    document.getElementById('fbTitle').textContent='✅ Bonne réponse !';
+  const fb=document.getElementById('feedbackEl');
+  if(i===q.ans){
+    score++;el.classList.add('correct');
+    fb.className='feedback correct-fb show';
+    document.getElementById('fbHead').textContent='✅ Bonne réponse !';
     catStats[q.cat].ok++;
-  } else {
-    el.classList.add('ko');
-    document.querySelectorAll('.opt')[q.ans].classList.add('ok');
-    fb.className='fb ko-fb show';
-    document.getElementById('fbTitle').textContent='❌ Mauvaise réponse';
+  }else{
+    el.classList.add('wrong');
+    document.querySelectorAll('.opt')[q.ans].classList.add('correct');
+    fb.className='feedback wrong-fb show';
+    document.getElementById('fbHead').textContent='❌ Pas tout à fait…';
   }
-  document.getElementById('fbText').textContent = (i!==q.ans ? '✔ Bonne réponse : "'+q.opts[q.ans]+'". — ' : '') + q.exp;
-  document.getElementById('scoreDisp').textContent = score;
+  document.getElementById('fbBody').textContent=(i!==q.ans?'✔ Bonne réponse : "'+q.opts[q.ans]+'". ':'')+q.exp;
+  document.getElementById('scoreDisp').textContent=score;
   const nb=document.getElementById('nextBtn');
-  nb.textContent = idx<quiz.length-1 ? 'Question suivante →' : 'Voir mes résultats 🏆';
+  nb.textContent=idx<quiz.length-1?'Question suivante →':'Voir mes résultats 🏁';
   nb.className='next-btn show';
 }
 
-function nextQ() {
+function nextQ(){
   idx++;
-  if(idx>=quiz.length) showResults();
+  if(idx>=quiz.length)showResults();
   else showQ();
 }
 
-function showResults() {
+function showResults(){
   document.getElementById('quiz').style.display='none';
   document.getElementById('results').style.display='block';
-  const tot=quiz.length, pct=Math.round(score/tot*100);
+  const total=quiz.length,pct=Math.round(score/total*100);
   document.getElementById('resPct').textContent=pct+'%';
-  document.getElementById('resFrac').textContent=score+'/'+tot;
-  document.getElementById('scoreRing').style.setProperty('--p',pct);
-  const best=localStorage.getItem('cap_best');
-  if(!best||pct>parseInt(best)) localStorage.setItem('cap_best',pct);
-  let msg,det;
-  if(pct>=90){msg='🏆 Excellent !';det='Parfaite maîtrise du programme. Vous êtes prête pour l\'examen !';}
-  else if(pct>=75){msg='🎉 Très bien !';det='Très bon niveau ! Quelques fiches à revoir pour être parfaite.';}
-  else if(pct>=60){msg='👍 Bien !';det='Bonnes bases ! Concentrez-vous sur les thèmes avec les scores les plus faibles.';}
-  else if(pct>=40){msg='📚 En progression';det='Continuez à réviser les fiches et revenez tester vous !';}
-  else{msg='💪 Allez, on révise !';det='Relisez les fiches de cours et recommencez, thème par thème !';}
-  document.getElementById('resMsg').textContent=msg;
-  document.getElementById('resDet').textContent=`${score} bonne${score>1?'s':''} réponse${score>1?'s':''} sur ${tot} — ${det}`;
-  const bd=document.getElementById('catBd');
-  bd.innerHTML='<div class="bd-title">📊 Résultats par thème :</div>';
+  document.getElementById('resFrac').textContent=score+' / '+total;
+  const circ=2*Math.PI*70;
+  const arc=document.getElementById('scoreArc');
+  arc.style.strokeDasharray=circ;arc.style.strokeDashoffset=circ;
+  arc.style.stroke=pct>=80?'#6b8f71':pct>=60?'#d4a843':'#c1724f';
+  setTimeout(()=>{arc.style.strokeDashoffset=circ-(pct/100)*circ;},100);
+  let title,sub;
+  if(pct>=90){title='🏆 Excellent !';sub='Parfaite maîtrise du programme. Vous êtes prête pour l\'examen !';}
+  else if(pct>=75){title='🎉 Très bien !';sub='Très bon niveau. Revoyez les thèmes les plus faibles pour être parfaite.';}
+  else if(pct>=60){title='👍 Bien !';sub='Bonnes bases. Concentrez-vous sur vos points faibles.';}
+  else if(pct>=40){title='📚 En progression';sub='Relisez les fiches et revenez vous tester !';}
+  else{title='💪 Allez, on révise !';sub='Recommencez thème par thème pour bien ancrer les notions clés.';}
+  document.getElementById('resTitle').textContent=title;
+  document.getElementById('resSub').textContent=`${score} bonne${score>1?'s':''} réponse${score>1?'s':''} sur ${total} — ${sub}`;
+  bestScores[curMode]=Math.max(pct,bestScores[curMode]||0);
+  Object.keys(catStats).forEach(cat=>{
+    const p=Math.round(catStats[cat].ok/catStats[cat].tot*100);
+    bestScores['c:'+cat]=Math.max(p,bestScores['c:'+cat]||0);
+  });
+  saveScores();
+  const bd=document.getElementById('breakdown');
+  bd.innerHTML='';
   Object.entries(catStats).forEach(([cat,s])=>{
     const p=Math.round(s.ok/s.tot*100);
-    bd.innerHTML+=`<div class="bd-row"><div class="bd-name">${cat.replace(/^[^\s]+\s/,'')}</div><div class="bd-bar"><div class="bd-fill" style="width:${p}%"></div></div><div class="bd-score">${s.ok}/${s.tot}</div></div>`;
+    const emoji=cat.split(' ')[0];
+    const name=cat.replace(/^[^\s]+\s/,'');
+    const color=p>=70?'#6b8f71':p>=40?'#d4a843':'#c1724f';
+    bd.innerHTML+=`<div class="bd-row"><div class="bd-emoji">${emoji}</div><div class="bd-name">${name}</div><div class="bd-bar-wrap"><div class="bd-bar-fill" style="width:${p}%;background:${color}"></div></div><div class="bd-score">${s.ok}/${s.tot}</div></div>`;
   });
   document.getElementById('replayBtn').onclick=()=>startQuiz(curMode);
 }
